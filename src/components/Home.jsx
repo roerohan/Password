@@ -1,30 +1,26 @@
-import React, {useState} from 'react'
-import axios from 'axios'
+import React, { useState } from 'react';
+import API from '../API';
 
-function Home(){
-  const[username,setUsername]= useState("");
+function Home() {
+  const [username, setUsername] = useState('');
 
-   function handleInput(event){
-    setUsername(event.target.value);
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    axios.post('/room/create', username)
-      .then(function (response) {
-          console.log(response)
-      })
-      .catch(function (error) {
-          console.log(error)
-      }) 
-}
-  return(
-      <div>
-          <form onSubmit={handleSubmit}>
-                  <input type="text" name="lastName" value={username} onChange={handleInput} required />
 
-                  <button type="submit">Sign Up</button>
-          </form>
-      </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await API.post('/room/create', username);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
   );
 }
 
