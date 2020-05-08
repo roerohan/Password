@@ -4,6 +4,17 @@
     vertical-align: middle;
 }
 
+@font-face {
+    font-family: PositiveSystem;
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/Positive\ System.otf") format("opentype");
+}
+
+.subtitle {
+    font-size: 1.5rem;
+}
+
 .card-holder {
     width: 50vw;
 }
@@ -15,16 +26,13 @@
 .display-card {
     background-color: #1B1922;
     border: 1px solid #FDFDFD;
-    border-radius: 1rem;
+    border-radius: 1.3rem;
 }
 
 .card-top {
     height: 65%;
 }
 
-.avatar {
-    height: 45%;
-}
 
 .card-bottom {
     height: 30%;
@@ -32,4 +40,16 @@
 
 .card-right {
     height: 100%;
+}
+
+@media(max-width:992px) {
+    .card-holder {
+        width: 90vw;
+    }
+}
+
+@media(max-width:768px) {
+    .home-cards {
+        height: 80vh;
+    }
 }
