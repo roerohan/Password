@@ -69,9 +69,16 @@ function Home() {
           </Card>
         </Col>
         <Col className="">
-          <Card className="display-card card-right">
+          <Card className="display-card card-right p-4">
+            <Card.Header className="subtitle">Instructions:</Card.Header>
             <Card.Body>
-              right
+              <ol>
+                <li>LOL</li>
+                <li>LOL</li>
+                <li>LOL</li>
+                <li>LOL</li>
+                <li>LOL</li>
+              </ol>
             </Card.Body>
           </Card>
         </Col>
