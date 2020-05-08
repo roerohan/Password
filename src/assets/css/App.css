@@ -8,7 +8,12 @@
     color: white !important;
 
 	overflow-x: hidden;
-    background-color: #342F43;
+	background-color: #342F43;
+	background-image: url('../images/background.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-attachment: fixed;
+	background-position: center;
 }
 
 @media (min-width: 1800px) {
@@ -20,5 +25,11 @@
 @media (min-width: 2500px) {
 	html {
 		font-size: 40px;
+	}
+}
+
+@media (max-width: 768px) {
+	#root {
+		background-image: none;
 	}
 }
