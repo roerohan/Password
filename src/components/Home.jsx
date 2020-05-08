@@ -35,13 +35,13 @@ function Home() {
   return (
     <Container className="card-holder">
       <Heading />
-      <Row className="home-cards">
-        <Col md className="d-flex flex-column justify-content-between">
+      <Row>
+        <Col md className="d-flex flex-column justify-content-between home-card">
           <Card className="display-card card-top mb-3">
             <Card.Body className="d-flex flex-column justify-content-between">
               <div className="text-center">
-                <FontAwesomeIcon icon={faUserCircle} size="5x" />
-                <div className="subtitle">Choose your Avatar!</div>
+                <FontAwesomeIcon icon={faUserCircle} size="4x" />
+                <div className="subtitle mt-1">Choose your Avatar!</div>
               </div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
@@ -68,7 +68,7 @@ function Home() {
             </Card.Body>
           </Card>
         </Col>
-        <Col className="">
+        <Col className="home-card">
           <Card className="display-card card-right p-4">
             <Card.Header className="subtitle">Instructions:</Card.Header>
             <Card.Body>

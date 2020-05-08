@@ -6,8 +6,9 @@
     width: 50vw;
 }
 
-.home-cards {
+.home-card {
     height: 60vh;
+    margin-top: 10%;
 }
 
 .display-card {
