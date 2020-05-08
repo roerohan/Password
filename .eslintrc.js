@@ -14,7 +14,7 @@ module.exports = {
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
-    experimentalObjectRestSpread: true,
+      experimentalObjectRestSpread: true,
     },
     ecmaVersion: 2018,
     sourceType: 'module',
@@ -23,7 +23,8 @@ module.exports = {
     'react',
   ],
   rules: {
-  "react/jsx-indent-props": ["error", 4],
-  "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-indent-props": ["error", 4],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-console": 0
   },
 };
