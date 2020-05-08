@@ -1,8 +1,8 @@
-html {
-    font-size: 16px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+#root {
+	font-size: 16px;
+	font-family: Lato, sans-serif;
 
-body {
     width: 100vw;
 	height: 100vh;
     color: white !important;
