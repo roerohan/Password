@@ -1,6 +1,7 @@
-.title {
-    font-family: PositiveSystem;
-    font-size: 4rem;
+.heading {
+    height: 20vh;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .title-img {

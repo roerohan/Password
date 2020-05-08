@@ -60,11 +60,11 @@ function Home() {
           </Card>
           <Card className="display-card card-bottom">
             <Card.Body className="text-center d-flex flex-column justify-content-around px-5">
-              <div className="subtitle">
+              <div className="bottom-content">
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 Play with friends!
               </div>
-              <Button type="submit" variant="primary" className="">CREATE PRIVATE ROOM!</Button>
+              <Button type="submit" variant="primary" className="create-button">CREATE PRIVATE ROOM!</Button>
             </Card.Body>
           </Card>
         </Col>

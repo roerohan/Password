@@ -6,7 +6,7 @@ import '../assets/css/Heading.css';
 function Heading() {
   return (
     <div className="heading">
-      <div className="title">
+      <div className="mt-4">
         <img src={TitleImage} alt="PASSWORD" className="title-img" />
       </div>
       <div className="subtitle">Guess it to win it!</div>

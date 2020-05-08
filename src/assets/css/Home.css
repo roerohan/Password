@@ -1,9 +1,3 @@
-.heading {
-    height: 25vh;
-    text-align: center;
-    vertical-align: middle;
-}
-
 .subtitle {
     font-size: 1.5rem;
 }
@@ -34,6 +28,10 @@
     width: 60%;
 }
 
+.bottom-content {
+    font-size: 1.3rem;
+}
+
 .card-right {
     height: 100%;
 }
@@ -41,6 +39,10 @@
 @media(max-width:992px) {
     .card-holder {
         width: 90vw;
+    }
+
+    .create-button {
+        font-size:  0.9rem;
     }
 }
 
