@@ -7,9 +7,13 @@ import {
   Form,
   Button,
 } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 
 import '../assets/css/Home.css';
+
 import API from '../API';
+import Heading from './Heading';
 
 function Home() {
   const [username, setUsername] = useState('');
@@ -29,12 +33,15 @@ function Home() {
   };
   return (
     <Container className="card-holder">
-      <div className="heading">Heading</div>
+      <Heading />
       <Row className="home-cards">
         <Col md className="d-flex flex-column justify-content-between">
           <Card className="display-card card-top mb-3">
-            <Card.Body>
-              <div className="avatar">Avatar</div>
+            <Card.Body className="d-flex flex-column justify-content-between">
+              <div className="text-center">
+                <FontAwesomeIcon icon={faUserCircle} size="5x" />
+                <div className="subtitle">Choose your Avatar!</div>
+              </div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
                   <Form.Control type="text" placeholder="Username" onChange={handleChange} />
@@ -44,9 +51,7 @@ function Home() {
                     <option>English</option>
                   </Form.Control>
                 </Form.Group>
-                <Form.Group className="text-center">
-                  <Button type="submit" variant="success">PLAY!</Button>
-                </Form.Group>
+                <div className="text-center"><Button type="submit" variant="success">PLAY!</Button></div>
               </Form>
             </Card.Body>
           </Card>
