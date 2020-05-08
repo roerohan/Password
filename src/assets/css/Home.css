@@ -1,0 +1,19 @@
+.heading {
+    height: 30vh;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.home-cards {
+    height: 60vh;
+}
+
+.display-card {
+    background-color: #1B1922;
+    border: 1px solid #FDFDFD;
+    height: 100%;
+}
+
+.card-top {
+    /* height: 80%; */
+}
