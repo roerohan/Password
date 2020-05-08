@@ -74,7 +74,7 @@ function Home() {
             <Card.Body>
               <ol className="instructions">
                 <li>
-                  A random word, the &lsquo;password&rsquo;,&nbsp;
+                  A random word, the &lsquo;password&rsquo;,
                   will be generated and displayed to a player.
                 </li>
                 <li>The player will type a word related to the password.</li>
