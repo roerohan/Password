@@ -37,7 +37,7 @@ function Home() {
               <div className="avatar">Avatar</div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
-                  <Form.Control inline type="text" placeholder="Username" onChange={handleChange} />
+                  <Form.Control type="text" placeholder="Username" onChange={handleChange} />
                 </Form.Group>
                 <Form.Group>
                   <Form.Control as="select">
