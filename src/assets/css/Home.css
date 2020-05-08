@@ -1,7 +1,11 @@
 .heading {
-    height: 30vh;
+    height: 25vh;
     text-align: center;
     vertical-align: middle;
+}
+
+.card-holder {
+    width: 50vw;
 }
 
 .home-cards {
@@ -11,9 +15,21 @@
 .display-card {
     background-color: #1B1922;
     border: 1px solid #FDFDFD;
-    height: 100%;
+    border-radius: 1rem;
 }
 
 .card-top {
-    /* height: 80%; */
+    height: 65%;
+}
+
+.avatar {
+    height: 45%;
+}
+
+.card-bottom {
+    height: 30%;
+}
+
+.card-right {
+    height: 100%;
 }
