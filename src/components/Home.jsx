@@ -72,12 +72,15 @@ function Home() {
           <Card className="display-card card-right p-4">
             <Card.Header className="subtitle">Instructions:</Card.Header>
             <Card.Body>
-              <ol>
-                <li>LOL</li>
-                <li>LOL</li>
-                <li>LOL</li>
-                <li>LOL</li>
-                <li>LOL</li>
+              <ol className="instructions">
+                <li>
+                  A random word, the &lsquo;password&rsquo;,&nbsp;
+                  will be generated and displayed to a player.
+                </li>
+                <li>The player will type a word related to the password.</li>
+                <li>Rest of the players will have to guess the &lsquo;password&rsquo;.</li>
+                <li>The earlier you guess, the higher you score.</li>
+                <li>Hints will be displayed in 15 seconds intervals.</li>
               </ol>
             </Card.Body>
           </Card>
