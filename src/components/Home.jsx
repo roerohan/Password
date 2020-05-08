@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 import '../assets/css/Home.css';
 
@@ -51,13 +52,19 @@ function Home() {
                     <option>English</option>
                   </Form.Control>
                 </Form.Group>
-                <div className="text-center"><Button type="submit" variant="success">PLAY!</Button></div>
+                <div className="text-center">
+                  <Button type="submit" variant="success" className="card-button">PLAY!</Button>
+                </div>
               </Form>
             </Card.Body>
           </Card>
           <Card className="display-card card-bottom">
-            <Card.Body>
-              left
+            <Card.Body className="text-center d-flex flex-column justify-content-around px-5">
+              <div className="subtitle">
+                <FontAwesomeIcon icon={faUsers} className="mr-2" />
+                Play with friends!
+              </div>
+              <Button type="submit" variant="primary" className="">CREATE PRIVATE ROOM!</Button>
             </Card.Body>
           </Card>
         </Col>

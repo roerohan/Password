@@ -24,8 +24,8 @@
 }
 
 .display-card {
-    background-color: #1B1922;
-    border: 1px solid #FDFDFD;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #707070;
     border-radius: 1.3rem;
 }
 
@@ -33,9 +33,12 @@
     height: 65%;
 }
 
-
 .card-bottom {
     height: 30%;
+}
+
+.card-button {
+    width: 60%;
 }
 
 .card-right {
