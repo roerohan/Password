@@ -4,13 +4,6 @@
     vertical-align: middle;
 }
 
-@font-face {
-    font-family: PositiveSystem;
-    font-weight: normal;
-    font-style: normal;
-    src: url("../fonts/Positive\ System.otf") format("opentype");
-}
-
 .subtitle {
     font-size: 1.5rem;
 }
