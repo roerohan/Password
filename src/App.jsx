@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './components/Home';
@@ -9,23 +13,39 @@ import './assets/css/App.css';
 
 function App() {
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
-  localStorage.setItem('username', username);
+
+  useEffect(() => {
+    localStorage.setItem('username', username);
+  }, [username]);
 
   const [roomId, setRoomId] = useState('');
+  const [creator, setCreator] = useState('');
 
-  console.log(username);
-  console.log(roomId);
   return (
     <Router>
       <Switch>
         <Route
           exact
           path="/"
-          component={
-            () => <Home username={username} setUsername={setUsername} setRoomId={setRoomId} />
+          render={
+            () => (
+              <Home
+                username={username}
+                setUsername={setUsername}
+                setRoomId={setRoomId}
+                setCreator={setCreator}
+              />
+            )
           }
         />
-        <Route exact path="/play" component={WaitingRoom} />
+
+        <Route
+          exact
+          path="/play"
+          render={
+            () => <WaitingRoom username={username} roomId={roomId} creator={creator} />
+          }
+        />
       </Switch>
     </Router>
   );
