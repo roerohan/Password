@@ -20,6 +20,14 @@ function App() {
 
   const [roomId, setRoomId] = useState('');
   const [creator, setCreator] = useState('');
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    console.log(`username: ${username}`);
+    console.log(`roomId: ${roomId}`);
+    console.log(`creator: ${creator}`);
+    console.log(`players: ${players.map((player) => player.username)}`);
+  }, [username, roomId, creator, players]);
 
   return (
     <Router>
@@ -31,9 +39,11 @@ function App() {
             () => (
               <Home
                 username={username}
+                roomId={roomId}
                 setUsername={setUsername}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
+                setPlayers={setPlayers}
               />
             )
           }
@@ -41,11 +51,15 @@ function App() {
 
         <Route
           exact
-          path="/play"
-          render={
-            () => <WaitingRoom username={username} roomId={roomId} creator={creator} />
-          }
-        />
+          path="/play/:room"
+        >
+          <WaitingRoom
+            username={username}
+            roomId={roomId}
+            creator={creator}
+            setRoomId={setRoomId}
+          />
+        </Route>
       </Switch>
     </Router>
   );
