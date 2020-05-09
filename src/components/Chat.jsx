@@ -29,9 +29,10 @@ function Chat(props) {
   const renderMessages = () => (
     messageList.map((msg) => (
       <li key={msg.time}>
-        {msg.username}
+        <strong>{msg.username}</strong>
         :
         {' '}
+        &nbsp;
         {msg.message}
         {msg.key}
       </li>

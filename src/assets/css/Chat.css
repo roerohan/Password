@@ -5,4 +5,10 @@
 .messages {
     height: 85%;
     overflow: auto;
+    font-size: 0.95rem;
+}
+
+.messages li {
+    list-style: none;
+    margin-left: -10%;
 }
