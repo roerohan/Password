@@ -1,0 +1,46 @@
+.subtitle {
+    font-size: 1.5rem;
+}
+
+.home-card {
+    min-height: 60vh;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.display-card {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #707070;
+    border-radius: 1.3rem;
+}
+
+.card-top {
+    height: 65%;
+}
+
+.card-bottom {
+    height: 30%;
+}
+
+.card-button {
+    width: 60%;
+}
+
+.bottom-content {
+    font-size: 1.3rem;
+}
+
+.card-right {
+    height: 100%;
+}
+
+.instructions {
+    font-size: 1rem;
+    margin-left: -8%;
+}
+
+@media(max-width:768px) {
+    .home-cards {
+        height: 80vh;
+    }
+}

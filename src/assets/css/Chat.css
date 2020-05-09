@@ -1,0 +1,8 @@
+.chat {
+    height: 60vh;
+}
+
+.messages {
+    height: 85%;
+    overflow: auto;
+}

@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+#root {
+	font-size: 16px;
+	font-family: Lato, sans-serif;
+
+    width: 100vw;
+	height: 100vh;
+    color: white !important;
+
+	overflow-x: hidden;
+	background-color: #342F43;
+	background-image: url('../images/background.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+@media (min-width: 1800px) {
+	html {
+		font-size: 20px;
+	}
+}
+
+@media (min-width: 2500px) {
+	html {
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 768px) {
+	#root {
+		background-image: none;
+	}
+}
