@@ -4,10 +4,10 @@ import propTypes from 'prop-types';
 
 import '../assets/css/GameCard.css';
 
-function Title(props) {
+function Header(props) {
   const { children } = props;
   return (
-    <Card.Title>{children}</Card.Title>
+    <Card.Header>{children}</Card.Header>
   );
 }
 
@@ -26,7 +26,7 @@ function GameCard(props) {
   );
 }
 
-Title.propTypes = {
+Header.propTypes = {
   children: propTypes.node.isRequired,
 };
 
@@ -39,6 +39,6 @@ GameCard.propTypes = {
 };
 
 GameCard.Body = Body;
-GameCard.Title = Title;
+GameCard.Header = Header;
 
 export default GameCard;
