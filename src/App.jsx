@@ -5,11 +5,14 @@ import {
   Switch,
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import socketio from 'socket.io-client';
 
 import Home from './components/Home';
 import WaitingRoom from './components/WaitingRoom';
 
 import './assets/css/App.css';
+
+const socket = socketio(process.env.REACT_APP_SOCKET_SERVER);
 
 function App() {
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
@@ -58,6 +61,7 @@ function App() {
             roomId={roomId}
             creator={creator}
             setRoomId={setRoomId}
+            socket={socket}
           />
         </Route>
       </Switch>

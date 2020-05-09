@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import {
+  Container,
+} from 'react-bootstrap';
 import propTypes from 'prop-types';
 
 import API from '../API';
+import Chat from './Chat';
 
 function WaitingRoom(props) {
   const {
     username,
     roomId,
     setRoomId,
+    socket,
   } = props;
 
   const [currentRoom] = useState(roomId);
+  const [connected, setConnected] = useState(false);
   const history = useHistory();
 
   const { room } = useParams();
@@ -26,14 +32,23 @@ function WaitingRoom(props) {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post('/room/create');
+      const response = await API.post('/game/start');
       console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <button type="submit" onClick={handleClick}>Play</button>
+    <Container>
+      <Chat
+        username={username}
+        roomId={roomId}
+        connected={connected}
+        setConnected={setConnected}
+        socket={socket}
+      />
+      <button type="submit" onClick={handleClick}>Play</button>
+    </Container>
   );
 }
 
@@ -41,6 +56,8 @@ WaitingRoom.propTypes = {
   username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
   setRoomId: propTypes.func.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  socket: propTypes.object.isRequired,
 };
 
 export default WaitingRoom;
