@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   Container,
+  Row,
+  Col,
+  Button,
 } from 'react-bootstrap';
 import propTypes from 'prop-types';
 
 import API from '../API';
 import Chat from './Chat';
+import Heading from './Heading';
+
+import '../assets/css/WaitingRoom.css';
 
 function WaitingRoom(props) {
   const {
@@ -40,16 +46,24 @@ function WaitingRoom(props) {
     }
   };
   return (
-    <Container>
-      <Chat
-        username={username}
-        roomId={roomId}
-        connected={connected}
-        setConnected={setConnected}
-        sendMessage={sendMessage}
-        messageList={messageList}
-      />
-      <button type="submit" onClick={handleClick}>Play</button>
+    <Container fluid className="lobby-container">
+      <Heading />
+      <Row className="mt-4">
+        <Col md />
+        <Col md className="text-center mb-4">
+          <Button type="submit" variant="success" onClick={handleClick}>Start</Button>
+        </Col>
+        <Col>
+          <Chat
+            username={username}
+            roomId={roomId}
+            connected={connected}
+            setConnected={setConnected}
+            sendMessage={sendMessage}
+            messageList={messageList}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 }

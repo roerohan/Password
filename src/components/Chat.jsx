@@ -47,7 +47,7 @@ function Chat(props) {
         <Form onSubmit={sendMessage}>
           <Row>
             <Col>
-              <Form.Control type="text" placeholder="Username" onChange={handleChange} value={message} />
+              <Form.Control type="text" placeholder="Type your guess here!" onChange={handleChange} value={message} />
             </Col>
             <Col xs="auto">
               <Button type="submit" variant="success">Send</Button>
