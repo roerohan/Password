@@ -10,24 +10,25 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import propTypes from 'prop-types';
 
 import '../assets/css/Home.css';
 
 import API from '../API';
 import Heading from './Heading';
 
-function Home() {
-  const [username, setUsername] = useState('');
+function Home(props) {
+  const { username: appUsername, setUsername: liftUserName } = props;
+  const [username, setUsername] = useState(appUsername);
 
-  const handleChange = ({ target }) => {
-    setUsername(target.value);
-  };
+  const handleChange = ({ target }) => setUsername(target.value);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await API.post('/room/create', { username });
       console.log(response);
+      liftUserName(username);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +46,7 @@ function Home() {
               </div>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
-                  <Form.Control type="text" placeholder="Username" onChange={handleChange} />
+                  <Form.Control type="text" placeholder="Username" value={username} onChange={handleChange} />
                 </Form.Group>
                 <Form.Group>
                   <Form.Control as="select">
@@ -89,5 +90,10 @@ function Home() {
     </Container>
   );
 }
+
+Home.propTypes = {
+  username: propTypes.string.isRequired,
+  setUsername: propTypes.func.isRequired,
+};
 
 export default Home;
