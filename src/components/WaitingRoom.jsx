@@ -13,7 +13,8 @@ function WaitingRoom(props) {
     username,
     roomId,
     setRoomId,
-    socket,
+    sendMessage,
+    messageList,
   } = props;
 
   const [currentRoom] = useState(roomId);
@@ -45,7 +46,8 @@ function WaitingRoom(props) {
         roomId={roomId}
         connected={connected}
         setConnected={setConnected}
-        socket={socket}
+        sendMessage={sendMessage}
+        messageList={messageList}
       />
       <button type="submit" onClick={handleClick}>Play</button>
     </Container>
@@ -56,8 +58,12 @@ WaitingRoom.propTypes = {
   username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
   setRoomId: propTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  socket: propTypes.object.isRequired,
+  sendMessage: propTypes.func.isRequired,
+  messageList: propTypes.arrayOf(propTypes.shape({
+    message: propTypes.string,
+    username: propTypes.string,
+    time: propTypes.string,
+  })).isRequired,
 };
 
 export default WaitingRoom;

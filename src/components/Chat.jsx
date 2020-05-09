@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Row,
   Col,
@@ -10,43 +10,19 @@ import propTypes from 'prop-types';
 import GameCard from './GameCard';
 import '../assets/css/Chat.css';
 
-let connected = false;
-
 function Chat(props) {
   const {
-    username,
-    roomId,
-    socket,
+    sendMessage: sm,
+    messageList,
   } = props;
 
   const [message, setMessage] = useState('');
-  const [messageList, setMessageList] = useState([]);
-
-  useEffect(() => {
-    if (!connected) {
-      socket.emit('join', {
-        username,
-        roomId,
-      });
-      connected = true;
-    }
-
-    socket.on('message', (data) => {
-      const { username: u, message: m, time } = data;
-      console.log(data);
-      setMessageList((messageL) => messageL.concat({ username: u, message: m, time }));
-    });
-  });
 
   const handleChange = ({ target }) => setMessage(target.value);
 
   const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit('message', {
-      username,
-      roomId,
-      message,
-    });
+    sm(message);
     setMessage('');
   };
 
@@ -84,10 +60,9 @@ function Chat(props) {
 }
 
 Chat.propTypes = {
-  username: propTypes.string.isRequired,
-  roomId: propTypes.string.isRequired,
+  sendMessage: propTypes.func.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
-  socket: propTypes.object.isRequired,
+  messageList: propTypes.array.isRequired,
 };
 
 export default Chat;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Container,
@@ -26,6 +26,7 @@ function Home(props) {
     setRoomId,
     setCreator,
     setPlayers,
+    joinRoom,
   } = props;
   const [username, setUsername] = useState(appUsername);
 
@@ -39,6 +40,8 @@ function Home(props) {
     if (players) {
       setPlayers(players);
     }
+    liftUserName(username);
+    joinRoom(username, roomId);
     history.push(`/play/${roomId}`);
   };
 
@@ -71,10 +74,6 @@ function Home(props) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    liftUserName(username);
-  }, [username, liftUserName]);
 
   return (
     <Container className="card-holder">
@@ -141,6 +140,7 @@ Home.propTypes = {
   setRoomId: propTypes.func.isRequired,
   setCreator: propTypes.func.isRequired,
   setPlayers: propTypes.func.isRequired,
+  joinRoom: propTypes.func.isRequired,
 };
 
 export default Home;

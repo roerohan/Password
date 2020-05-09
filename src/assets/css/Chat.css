@@ -3,5 +3,6 @@
 }
 
 .messages {
-    height: 80%;
+    height: 85%;
+    overflow: auto;
 }

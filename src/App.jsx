@@ -24,6 +24,7 @@ function App() {
   const [roomId, setRoomId] = useState('');
   const [creator, setCreator] = useState('');
   const [players, setPlayers] = useState([]);
+  const [messageList, setMessageList] = useState([]);
 
   useEffect(() => {
     console.log(`username: ${username}`);
@@ -31,6 +32,29 @@ function App() {
     console.log(`creator: ${creator}`);
     console.log(`players: ${players.map((player) => player.username)}`);
   }, [username, roomId, creator, players]);
+
+  useEffect(() => {
+    socket.on('message', (data) => {
+      const { username: u, message: m, time } = data;
+      setMessageList((messageL) => messageL.concat({ username: u, message: m, time }));
+    });
+  }, [setMessageList]);
+
+  const joinRoom = (u, r) => {
+    if (!u || !r) return;
+    socket.emit('join', {
+      username: u,
+      roomId: r,
+    });
+  };
+
+  const sendMessage = (message) => {
+    socket.emit('message', {
+      username,
+      roomId,
+      message,
+    });
+  };
 
   return (
     <Router>
@@ -47,6 +71,7 @@ function App() {
                 setRoomId={setRoomId}
                 setCreator={setCreator}
                 setPlayers={setPlayers}
+                joinRoom={joinRoom}
               />
             )
           }
@@ -61,7 +86,8 @@ function App() {
             roomId={roomId}
             creator={creator}
             setRoomId={setRoomId}
-            socket={socket}
+            sendMessage={sendMessage}
+            messageList={messageList}
           />
         </Route>
       </Switch>
