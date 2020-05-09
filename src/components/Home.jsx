@@ -86,7 +86,7 @@ function Home(props) {
                 <FontAwesomeIcon icon={faUserCircle} size="4x" />
                 <div className="subtitle mt-1">Choose your Avatar!</div>
               </div>
-              <Form onSubmit={handleJoin}>
+              <Form className="mt-2" onSubmit={handleJoin}>
                 <Form.Group>
                   <Form.Control type="text" placeholder="Username" value={username} onChange={handleChange} />
                 </Form.Group>
