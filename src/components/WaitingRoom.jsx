@@ -35,11 +35,13 @@ function WaitingRoom(props) {
     }
   }, [room, currentRoom, setRoomId, history]);
 
-  console.log(username, roomId);
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post('/game/start');
+      const response = await API.post('/game/start', {
+        roomId,
+        username,
+      });
       console.log(response);
     } catch (error) {
       console.log(error);
