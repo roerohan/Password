@@ -21,9 +21,11 @@ import Heading from './Heading';
 function Home(props) {
   const {
     username: appUsername,
+    roomId: appRoomId,
     setUsername: liftUserName,
     setRoomId,
     setCreator,
+    setPlayers,
   } = props;
   const [username, setUsername] = useState(appUsername);
 
@@ -31,9 +33,18 @@ function Home(props) {
 
   const handleChange = ({ target }) => setUsername(target.value);
 
+  const liftStateFromResponse = (roomId, creator, players) => {
+    setRoomId(roomId);
+    setCreator(creator);
+    if (players) {
+      setPlayers(players);
+    }
+    history.push(`/play/${roomId}`);
+  };
+
   const handleJoin = async (e) => {
     e.preventDefault();
-    const response = (await API.get('/room/join', { params: { username } })).data;
+    const response = (await API.get(`/room/join/${appRoomId}`, { params: { username } })).data;
     console.log(response);
     if (!response.success) {
       console.error(response.message);
@@ -41,11 +52,7 @@ function Home(props) {
     }
 
     const { roomId, creator, players } = response.message;
-    console.log(roomId);
-    setRoomId(roomId);
-    setCreator(creator);
-    console.log(players);
-    history.push('/play');
+    liftStateFromResponse(roomId, creator, players);
   };
 
   const handleCreate = async (e) => {
@@ -59,9 +66,7 @@ function Home(props) {
       }
 
       const { roomId, creator } = response.message;
-      setRoomId(roomId);
-      setCreator(creator);
-      history.push('/play');
+      liftStateFromResponse(roomId, creator);
     } catch (error) {
       console.log(error);
     }
@@ -131,9 +136,11 @@ function Home(props) {
 
 Home.propTypes = {
   username: propTypes.string.isRequired,
+  roomId: propTypes.string.isRequired,
   setUsername: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   setCreator: propTypes.func.isRequired,
+  setPlayers: propTypes.func.isRequired,
 };
 
 export default Home;
