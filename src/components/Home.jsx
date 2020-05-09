@@ -4,7 +4,6 @@ import {
   Container,
   Row,
   Col,
-  Card,
   Form,
   Button,
 } from 'react-bootstrap';
@@ -17,7 +16,7 @@ import '../assets/css/Home.css';
 
 import API from '../API';
 import Heading from './Heading';
-// import GameCard from './GameCard';
+import GameCard from './GameCard';
 
 function Home(props) {
   const {
@@ -82,8 +81,8 @@ function Home(props) {
       <Heading />
       <Row>
         <Col md className="d-flex flex-column justify-content-between home-card">
-          <Card className="display-card card-top mb-3">
-            <Card.Body className="d-flex flex-column justify-content-between">
+          <GameCard className="card-top mb-3">
+            <GameCard.Body className="d-flex flex-column justify-content-between">
               <div className="text-center">
                 <FontAwesomeIcon icon={faUserCircle} size="4x" />
                 <div className="subtitle mt-1">Choose your Avatar!</div>
@@ -101,22 +100,22 @@ function Home(props) {
                   <Button type="submit" variant="success" className="card-button">PLAY!</Button>
                 </div>
               </Form>
-            </Card.Body>
-          </Card>
-          <Card className="display-card card-bottom">
-            <Card.Body className="text-center d-flex flex-column justify-content-around px-5">
+            </GameCard.Body>
+          </GameCard>
+          <GameCard className="card-bottom">
+            <GameCard.Body className="text-center d-flex flex-column justify-content-around px-5">
               <div className="bottom-content">
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 Play with friends!
               </div>
               <Button type="submit" variant="primary" className="create-button" onClick={handleCreate}>CREATE PRIVATE ROOM!</Button>
-            </Card.Body>
-          </Card>
+            </GameCard.Body>
+          </GameCard>
         </Col>
         <Col className="home-card">
-          <Card className="display-card card-right p-4">
-            <Card.Header className="subtitle">Instructions:</Card.Header>
-            <Card.Body>
+          <GameCard className="card-right p-4">
+            <GameCard.Header className="subtitle">Instructions:</GameCard.Header>
+            <GameCard.Body>
               <ol className="instructions">
                 <li>
                   A random word, the &lsquo;password&rsquo;,
@@ -127,8 +126,8 @@ function Home(props) {
                 <li>The earlier you guess, the higher you score.</li>
                 <li>Hints will be displayed in 15 seconds intervals.</li>
               </ol>
-            </Card.Body>
-          </Card>
+            </GameCard.Body>
+          </GameCard>
         </Col>
       </Row>
     </Container>

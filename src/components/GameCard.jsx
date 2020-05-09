@@ -5,37 +5,40 @@ import propTypes from 'prop-types';
 import '../assets/css/GameCard.css';
 
 function Header(props) {
-  const { children } = props;
+  const { children, className } = props;
   return (
-    <Card.Header>{children}</Card.Header>
+    <Card.Header className={className}>{children}</Card.Header>
   );
 }
 
 function Body(props) {
-  const { children } = props;
+  const { children, className } = props;
   return (
-    <Card.Body>{children}</Card.Body>
+    <Card.Body className={className}>{children}</Card.Body>
   );
 }
 
 function GameCard(props) {
-  const { children } = props;
+  const { children, className } = props;
   console.log(children);
   return (
-    <Card className="display-card">{children}</Card>
+    <Card className={`display-card ${className}`}>{children}</Card>
   );
 }
 
 Header.propTypes = {
   children: propTypes.node.isRequired,
+  className: propTypes.string.isRequired,
 };
 
 Body.propTypes = {
   children: propTypes.node.isRequired,
+  className: propTypes.string.isRequired,
 };
 
 GameCard.propTypes = {
   children: propTypes.node.isRequired,
+  className: propTypes.string.isRequired,
 };
 
 GameCard.Body = Body;
