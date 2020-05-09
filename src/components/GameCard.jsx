@@ -25,35 +25,23 @@ function GameCard(props) {
   );
 }
 
-Header.propTypes = {
+const propType = {
   children: propTypes.node,
   className: propTypes.string,
 };
 
-Body.propTypes = {
-  children: propTypes.node,
-  className: propTypes.string,
-};
-
-GameCard.propTypes = {
-  children: propTypes.node,
-  className: propTypes.string,
-};
-
-Header.defaultProps = {
+const defaultProps = {
   children: <></>,
   className: '',
 };
 
-Body.defaultProps = {
-  children: <></>,
-  className: '',
-};
+Header.propTypes = propType;
+Body.propTypes = propType;
+GameCard.propTypes = propType;
 
-GameCard.defaultProps = {
-  children: <></>,
-  className: '',
-};
+Header.defaultProps = defaultProps;
+Body.defaultProps = defaultProps;
+GameCard.defaultProps = defaultProps;
 
 GameCard.Body = Body;
 GameCard.Header = Header;
