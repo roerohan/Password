@@ -107,7 +107,7 @@ function Home(props) {
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 Play with friends!
               </div>
-              <Button type="submit" variant="primary" className="create-button" onClick={handleCreate}>CREATE PRIVATE ROOM!</Button>
+              <Button type="submit" variant="primary" className="w-75 m-auto" onClick={handleCreate}>CREATE ROOM!</Button>
             </GameCard.Body>
           </GameCard>
         </Col>
