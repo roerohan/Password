@@ -78,10 +78,10 @@ function Home(props) {
   return (
     <Container className="card-holder">
       <Heading />
-      <Row>
-        <Col md className="d-flex flex-column justify-content-between home-card">
+      <Row className="justify-content-center">
+        <Col md="5" className="d-flex flex-column justify-content-between home-card">
           <GameCard className="card-top mb-3">
-            <GameCard.Body className="d-flex flex-column justify-content-between">
+            <GameCard.Body className="d-flex flex-column justify-content-around">
               <div className="text-center">
                 <FontAwesomeIcon icon={faUserCircle} size="4x" />
                 <div className="subtitle mt-1">Choose your Avatar!</div>
@@ -111,7 +111,7 @@ function Home(props) {
             </GameCard.Body>
           </GameCard>
         </Col>
-        <Col className="home-card">
+        <Col md="5" className="home-card">
           <GameCard className="card-right p-4">
             <GameCard.Header className="subtitle">Instructions:</GameCard.Header>
             <GameCard.Body>

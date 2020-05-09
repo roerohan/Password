@@ -2,10 +2,6 @@
     font-size: 1.5rem;
 }
 
-.card-holder {
-    width: 50vw;
-}
-
 .home-card {
     min-height: 60vh;
     margin-top: 3%;
@@ -44,10 +40,6 @@
 }
 
 @media(max-width:992px) {
-    .card-holder {
-        width: 90vw;
-    }
-
     .create-button {
         font-size:  0.9rem;
     }
