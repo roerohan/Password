@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Container,
   Row,
@@ -18,21 +19,58 @@ import API from '../API';
 import Heading from './Heading';
 
 function Home(props) {
-  const { username: appUsername, setUsername: liftUserName } = props;
+  const {
+    username: appUsername,
+    setUsername: liftUserName,
+    setRoomId,
+    setCreator,
+  } = props;
   const [username, setUsername] = useState(appUsername);
+
+  const history = useHistory();
 
   const handleChange = ({ target }) => setUsername(target.value);
 
-  const handleSubmit = async (e) => {
+  const handleJoin = async (e) => {
+    e.preventDefault();
+    const response = (await API.get('/room/join', { params: { username } })).data;
+    console.log(response);
+    if (!response.success) {
+      console.error(response.message);
+      return;
+    }
+
+    const { roomId, creator, players } = response.message;
+    console.log(roomId);
+    setRoomId(roomId);
+    setCreator(creator);
+    console.log(players);
+    history.push('/play');
+  };
+
+  const handleCreate = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post('/room/create', { username });
-      console.log(response);
-      liftUserName(username);
+      const response = (await API.post('/room/create', { username })).data;
+
+      if (!response.success) {
+        console.error(response.message);
+        return;
+      }
+
+      const { roomId, creator } = response.message;
+      setRoomId(roomId);
+      setCreator(creator);
+      history.push('/play');
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    liftUserName(username);
+  }, [username, liftUserName]);
+
   return (
     <Container className="card-holder">
       <Heading />
@@ -44,7 +82,7 @@ function Home(props) {
                 <FontAwesomeIcon icon={faUserCircle} size="4x" />
                 <div className="subtitle mt-1">Choose your Avatar!</div>
               </div>
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleJoin}>
                 <Form.Group>
                   <Form.Control type="text" placeholder="Username" value={username} onChange={handleChange} />
                 </Form.Group>
@@ -65,7 +103,7 @@ function Home(props) {
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 Play with friends!
               </div>
-              <Button type="submit" variant="primary" className="create-button">CREATE PRIVATE ROOM!</Button>
+              <Button type="submit" variant="primary" className="create-button" onClick={handleCreate}>CREATE PRIVATE ROOM!</Button>
             </Card.Body>
           </Card>
         </Col>
@@ -94,6 +132,8 @@ function Home(props) {
 Home.propTypes = {
   username: propTypes.string.isRequired,
   setUsername: propTypes.func.isRequired,
+  setRoomId: propTypes.func.isRequired,
+  setCreator: propTypes.func.isRequired,
 };
 
 export default Home;
