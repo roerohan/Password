@@ -14,7 +14,7 @@ function Header(props) {
 function Body(props) {
   const { children, className } = props;
   return (
-    <Card.Body className={className}>{children}</Card.Body>
+    <Card.Body className={`display-card-body ${className}`}>{children}</Card.Body>
   );
 }
 
