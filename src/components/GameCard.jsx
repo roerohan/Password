@@ -20,7 +20,6 @@ function Body(props) {
 
 function GameCard(props) {
   const { children, className } = props;
-  console.log(children);
   return (
     <Card className={`display-card ${className}`}>{children}</Card>
   );
