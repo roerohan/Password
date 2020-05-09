@@ -102,7 +102,7 @@ function Home(props) {
             </GameCard.Body>
           </GameCard>
           <GameCard className="card-bottom">
-            <GameCard.Body className="text-center d-flex flex-column justify-content-around px-5">
+            <GameCard.Body className="text-center d-flex flex-column justify-content-around px-2">
               <div className="bottom-content">
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 Play with friends!

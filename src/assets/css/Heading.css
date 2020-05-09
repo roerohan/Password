@@ -7,8 +7,8 @@
     width: 30vw;
 }
 
-.subtitle {
-    font-size: 1.5rem;
+.heading .subtitle {
+    font-size: 1.25rem;
 }
 
 @media(max-width:992px) {
