@@ -17,6 +17,7 @@ import '../assets/css/Home.css';
 
 import API from '../API';
 import Heading from './Heading';
+// import GameCard from './GameCard';
 
 function Home(props) {
   const {
