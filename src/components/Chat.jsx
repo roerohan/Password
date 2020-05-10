@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Row,
   Col,
@@ -26,6 +26,11 @@ function Chat(props) {
     setMessage('');
   };
 
+  useEffect(() => {
+    const messages = document.getElementsByClassName('messages')[0];
+    messages.scrollTop = messages.scrollHeight;
+  }, [messageList]);
+
   const renderMessages = () => (
     messageList.map((msg) => (
       <li key={msg.time}>
@@ -45,7 +50,7 @@ function Chat(props) {
         <div className="messages">
           <ul>{renderMessages()}</ul>
         </div>
-        <Form onSubmit={sendMessage}>
+        <Form onSubmit={sendMessage} className="send-message">
           <Row>
             <Col>
               <Form.Control type="text" placeholder="Type your guess here!" onChange={handleChange} value={message} />
