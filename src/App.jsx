@@ -49,6 +49,8 @@ function App() {
   };
 
   const sendMessage = (message) => {
+    if (!message) return;
+
     socket.emit('message', {
       username,
       roomId,
