@@ -106,7 +106,6 @@ function App() {
         />
       );
     }
-    console.log(`Players: ${players}`);
     return (
       <Game
         username={username}
