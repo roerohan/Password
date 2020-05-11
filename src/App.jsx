@@ -97,6 +97,7 @@ function App() {
         <WaitingRoom
           username={username}
           roomId={roomId}
+          players={players}
           creator={creator}
           setRoomId={setRoomId}
           sendMessage={sendMessage}
@@ -129,6 +130,7 @@ function App() {
                 username={username}
                 roomId={roomId}
                 setUsername={setUsername}
+                setHasStarted={setHasStarted}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
                 setPlayers={setPlayers}
