@@ -9,6 +9,7 @@ import socketio from 'socket.io-client';
 
 import Home from './components/Home';
 import WaitingRoom from './components/WaitingRoom';
+import Game from './components/Game';
 
 import './assets/css/App.css';
 
@@ -25,14 +26,15 @@ function App() {
   const [creator, setCreator] = useState('');
   const [players, setPlayers] = useState([]);
   const [messageList, setMessageList] = useState([]);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     console.log(`username: ${username}`);
     console.log(`roomId: ${roomId}`);
     console.log(`creator: ${creator}`);
     console.log(`players: ${players.map((player) => player.username)}`);
-  }, [username, roomId, creator, players]);
-
+    console.log(`started: ${hasStarted}`);
+  }, [username, roomId, creator, players, hasStarted]);
   useEffect(() => {
     socket.on('message', (data) => {
       const { username: u, message: m, time } = data;
@@ -56,6 +58,23 @@ function App() {
       roomId,
       message,
     });
+  };
+
+  const playComponent = () => {
+    if (!hasStarted) {
+      return (
+        <WaitingRoom
+          username={username}
+          roomId={roomId}
+          creator={creator}
+          setRoomId={setRoomId}
+          sendMessage={sendMessage}
+          messageList={messageList}
+          setHasStarted={setHasStarted}
+        />
+      );
+    }
+    return <Game />;
   };
 
   return (
@@ -83,14 +102,7 @@ function App() {
           exact
           path="/play/:room"
         >
-          <WaitingRoom
-            username={username}
-            roomId={roomId}
-            creator={creator}
-            setRoomId={setRoomId}
-            sendMessage={sendMessage}
-            messageList={messageList}
-          />
+          {playComponent()}
         </Route>
       </Switch>
     </Router>

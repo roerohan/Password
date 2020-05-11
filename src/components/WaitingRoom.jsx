@@ -21,6 +21,7 @@ function WaitingRoom(props) {
     setRoomId,
     sendMessage,
     messageList,
+    setHasStarted,
   } = props;
 
   const [currentRoom] = useState(roomId);
@@ -38,13 +39,15 @@ function WaitingRoom(props) {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = await API.post('/game/start', {
-        roomId,
-        username,
-      });
-      console.log(response);
+      const response = (await API.post('/game/start', { roomId, username })).data;
+      if (!response.success) {
+        console.error(response.message);
+        return;
+      }
+      console.log(response.message.hasStarted);
+      setHasStarted(response.message.hasStarted);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (
@@ -80,6 +83,7 @@ WaitingRoom.propTypes = {
     username: propTypes.string,
     time: propTypes.string,
   })).isRequired,
+  setHasStarted: propTypes.func.isRequired,
 };
 
 export default WaitingRoom;
