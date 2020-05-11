@@ -3,13 +3,13 @@ import {
   Container,
   Row,
   Col,
-  Button,
 } from 'react-bootstrap';
 import propTypes from 'prop-types';
 
 import Heading from './Heading';
 import Chat from './Chat';
 import PlayerList from './PlayerList';
+import GameCard from './GameCard';
 
 function Game(props) {
   const {
@@ -30,7 +30,11 @@ function Game(props) {
           />
         </Col>
         <Col md className="text-center mb-4">
-          <Button type="submit" variant="success">Game</Button>
+          <GameCard>
+            <GameCard.Body>
+              HelloWorld
+            </GameCard.Body>
+          </GameCard>
           <div>
             {username}
             ,
