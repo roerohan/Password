@@ -3,16 +3,24 @@
 }
 
 .messages {
-    height: 90%;
-    overflow: auto;
+    overflow-y: auto;
     font-size: 0.95rem;
-}
-
-.messages ul {
     padding-left: 0;
     list-style: none;
+    max-width: 21vw;
 }
 
 .send-message input[type="text"]::placeholder {
     font-style: italic;
+}
+
+.messages::-webkit-scrollbar {
+    width: 0.25rem;
+    margin-left: -10px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    opacity: 0.8;
+    border-radius: 1.25rem;
 }
