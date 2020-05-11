@@ -14,8 +14,8 @@ function PlayerList(props) {
     players,
   } = props;
 
-  const userBox = (username, points) => (
-    <Row className="list-row">
+  const userBox = (username, points, id) => (
+    <Row key={id} className="list-row">
       <Col className="m-auto">Av</Col>
       <Col sm="auto" className="user-col m-auto">
         <div className="list-username">{username}</div>
@@ -32,7 +32,7 @@ function PlayerList(props) {
   return (
     <GameCard className="chat">
       <GameCard.Body className="text-center">
-        <div className="player-list">{players.map((player) => userBox(player.username, player.points))}</div>
+        <div className="player-list">{players.map((player) => userBox(player.username, player.points, player._id))}</div>
       </GameCard.Body>
     </GameCard>
   );
