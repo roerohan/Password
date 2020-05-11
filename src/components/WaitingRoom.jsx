@@ -21,7 +21,7 @@ function WaitingRoom(props) {
     setRoomId,
     sendMessage,
     messageList,
-    setHasStarted,
+    startGame,
   } = props;
 
   const [currentRoom] = useState(roomId);
@@ -44,8 +44,12 @@ function WaitingRoom(props) {
         console.error(response.message);
         return;
       }
-      console.log(response.message.hasStarted);
-      setHasStarted(response.message.hasStarted);
+
+      if (!response.message.hasStarted) {
+        return;
+      }
+
+      startGame(roomId, username);
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +87,7 @@ WaitingRoom.propTypes = {
     username: propTypes.string,
     time: propTypes.string,
   })).isRequired,
-  setHasStarted: propTypes.func.isRequired,
+  startGame: propTypes.func.isRequired,
 };
 
 export default WaitingRoom;

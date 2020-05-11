@@ -35,6 +35,7 @@ function App() {
     console.log(`players: ${players.map((player) => player.username)}`);
     console.log(`started: ${hasStarted}`);
   }, [username, roomId, creator, players, hasStarted]);
+
   useEffect(() => {
     socket.on('message', (data) => {
       const { username: u, message: m, time } = data;
@@ -42,11 +43,28 @@ function App() {
     });
   }, [setMessageList]);
 
-  const joinRoom = (u, r) => {
-    if (!u || !r) return;
+  useEffect(() => {
+    socket.on('join', (data) => {
+      const { players: ps } = data;
+      setPlayers(ps);
+    });
+  }, [setPlayers]);
+
+  useEffect(() => {
+    socket.on('start', (data) => {
+      const { hasStarted: hs } = data;
+      if (!hs) return;
+
+      setHasStarted(hs);
+    });
+  });
+
+  const joinRoom = (u, r, ps) => {
+    if (!u || !r || !ps) return;
     socket.emit('join', {
       username: u,
       roomId: r,
+      players: ps,
     });
   };
 
@@ -60,6 +78,13 @@ function App() {
     });
   };
 
+  const startGame = (r, u) => {
+    socket.emit('start', {
+      roomId: r,
+      username: u,
+    });
+  };
+
   const playComponent = () => {
     if (!hasStarted) {
       return (
@@ -70,7 +95,7 @@ function App() {
           setRoomId={setRoomId}
           sendMessage={sendMessage}
           messageList={messageList}
-          setHasStarted={setHasStarted}
+          startGame={startGame}
         />
       );
     }
