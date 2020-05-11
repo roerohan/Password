@@ -47,9 +47,9 @@ function Chat(props) {
   return (
     <GameCard className="chat">
       <GameCard.Body className="d-flex flex-column justify-content-between">
-        <div className="messages">
-          <ul>{renderMessages()}</ul>
-        </div>
+        <ul className="messages mb-3">
+          {renderMessages()}
+        </ul>
         <Form onSubmit={sendMessage} className="send-message">
           <Row>
             <Col>
