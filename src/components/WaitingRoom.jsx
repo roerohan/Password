@@ -25,7 +25,6 @@ function WaitingRoom(props) {
   } = props;
 
   const [currentRoom] = useState(roomId);
-  const [connected, setConnected] = useState(false);
   const history = useHistory();
 
   const { room } = useParams();
@@ -54,6 +53,7 @@ function WaitingRoom(props) {
       console.error(error);
     }
   };
+
   return (
     <Container fluid className="lobby-container">
       <Heading />
@@ -64,10 +64,6 @@ function WaitingRoom(props) {
         </Col>
         <Col>
           <Chat
-            username={username}
-            roomId={roomId}
-            connected={connected}
-            setConnected={setConnected}
             sendMessage={sendMessage}
             messageList={messageList}
           />
