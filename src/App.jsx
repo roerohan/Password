@@ -105,7 +105,14 @@ function App() {
         />
       );
     }
-    return <Game />;
+    return (
+      <Game
+        username={username}
+        roomId={roomId}
+        sendMessage={sendMessage}
+        messageList={messageList}
+      />
+    );
   };
 
   return (
