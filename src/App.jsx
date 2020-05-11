@@ -48,7 +48,13 @@ function App() {
       const { players: ps } = data;
       setPlayers(ps);
     });
-  }, [setPlayers]);
+
+    socket.on('disconnect', (data) => {
+      const { username: u, creator: c } = data;
+      setPlayers(players.filter((p) => p.username !== u));
+      setCreator(c);
+    });
+  }, [setPlayers, players]);
 
   useEffect(() => {
     socket.on('start', (data) => {
