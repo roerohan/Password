@@ -1,19 +1,38 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import {
+  Row,
+  Col,
+} from 'react-bootstrap';
 
 import GameCard from './GameCard';
+
+import '../assets/css/PlayerList.css';
 
 function PlayerList(props) {
   const {
     players,
   } = props;
 
+  const userBox = (username, points) => (
+    <Row className="list-row">
+      <Col className="m-auto">Av</Col>
+      <Col sm="auto" className="user-col m-auto">
+        <div className="list-username">{username}</div>
+        <div className="list-points">
+          Points:
+          {' '}
+          {points}
+        </div>
+      </Col>
+      <Col className="m-auto">#1</Col>
+    </Row>
+  );
+
   return (
     <GameCard className="chat">
-      <GameCard.Body className="d-flex flex-column justify-content-between">
-        {
-          players.map((player) => player.username)
-        }
+      <GameCard.Body className="text-center">
+        <div className="player-list">{players.map((player) => userBox(player.username, player.points))}</div>
       </GameCard.Body>
     </GameCard>
   );
