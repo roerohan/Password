@@ -23,9 +23,9 @@ function Home(props) {
     username: appUsername,
     roomId: appRoomId,
     setUsername: liftUserName,
+    setHasStarted,
     setRoomId,
     setCreator,
-    setPlayers,
     joinRoom,
   } = props;
   const [username, setUsername] = useState(appUsername);
@@ -34,14 +34,12 @@ function Home(props) {
 
   const handleChange = ({ target }) => setUsername(target.value);
 
-  const liftStateFromResponse = (roomId, creator, players) => {
+  const liftStateFromResponse = (roomId, creator, players, hasStarted) => {
     setRoomId(roomId);
     setCreator(creator);
-    if (players) {
-      setPlayers(players);
-    }
     liftUserName(username);
-    joinRoom(username, roomId);
+    setHasStarted(hasStarted);
+    joinRoom(username, roomId, players);
     history.push(`/play/${roomId}`);
   };
 
@@ -54,8 +52,13 @@ function Home(props) {
       return;
     }
 
-    const { roomId, creator, players } = response.message;
-    liftStateFromResponse(roomId, creator, players);
+    const {
+      roomId,
+      creator,
+      players,
+      hasStarted,
+    } = response.message;
+    liftStateFromResponse(roomId, creator, players, hasStarted);
   };
 
   const handleCreate = async (e) => {
@@ -68,8 +71,8 @@ function Home(props) {
         return;
       }
 
-      const { roomId, creator } = response.message;
-      liftStateFromResponse(roomId, creator);
+      const { roomId, creator, players } = response.message;
+      liftStateFromResponse(roomId, creator, players);
     } catch (error) {
       console.log(error);
     }
@@ -137,9 +140,9 @@ Home.propTypes = {
   username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
   setUsername: propTypes.func.isRequired,
+  setHasStarted: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   setCreator: propTypes.func.isRequired,
-  setPlayers: propTypes.func.isRequired,
   joinRoom: propTypes.func.isRequired,
 };
 

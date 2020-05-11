@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Row,
   Col,
@@ -26,12 +26,18 @@ function Chat(props) {
     setMessage('');
   };
 
+  useEffect(() => {
+    const messages = document.getElementsByClassName('messages')[0];
+    messages.scrollTop = messages.scrollHeight;
+  }, [messageList]);
+
   const renderMessages = () => (
     messageList.map((msg) => (
       <li key={msg.time}>
-        {msg.username}
+        <strong>{msg.username}</strong>
         :
         {' '}
+        &nbsp;
         {msg.message}
         {msg.key}
       </li>
@@ -41,13 +47,13 @@ function Chat(props) {
   return (
     <GameCard className="chat">
       <GameCard.Body className="d-flex flex-column justify-content-between">
-        <div className="messages">
-          <ul>{renderMessages()}</ul>
-        </div>
-        <Form onSubmit={sendMessage}>
+        <ul className="messages mb-3">
+          {renderMessages()}
+        </ul>
+        <Form onSubmit={sendMessage} className="send-message">
           <Row>
             <Col>
-              <Form.Control type="text" placeholder="Username" onChange={handleChange} value={message} />
+              <Form.Control type="text" placeholder="Type your guess here!" onChange={handleChange} value={message} />
             </Col>
             <Col xs="auto">
               <Button type="submit" variant="success">Send</Button>
@@ -61,8 +67,11 @@ function Chat(props) {
 
 Chat.propTypes = {
   sendMessage: propTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  messageList: propTypes.array.isRequired,
+  messageList: propTypes.arrayOf(propTypes.shape({
+    message: propTypes.string,
+    username: propTypes.string,
+    time: propTypes.string,
+  })).isRequired,
 };
 
 export default Chat;

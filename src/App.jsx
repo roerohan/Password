@@ -9,6 +9,7 @@ import socketio from 'socket.io-client';
 
 import Home from './components/Home';
 import WaitingRoom from './components/WaitingRoom';
+import Game from './components/Game';
 
 import './assets/css/App.css';
 
@@ -25,13 +26,15 @@ function App() {
   const [creator, setCreator] = useState('');
   const [players, setPlayers] = useState([]);
   const [messageList, setMessageList] = useState([]);
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     console.log(`username: ${username}`);
     console.log(`roomId: ${roomId}`);
     console.log(`creator: ${creator}`);
     console.log(`players: ${players.map((player) => player.username)}`);
-  }, [username, roomId, creator, players]);
+    console.log(`started: ${hasStarted}`);
+  }, [username, roomId, creator, players, hasStarted]);
 
   useEffect(() => {
     socket.on('message', (data) => {
@@ -40,20 +43,78 @@ function App() {
     });
   }, [setMessageList]);
 
-  const joinRoom = (u, r) => {
-    if (!u || !r) return;
+  useEffect(() => {
+    socket.on('join', (data) => {
+      const { players: ps } = data;
+      setPlayers(ps);
+    });
+
+    socket.on('disconnect', (data) => {
+      const { username: u, creator: c } = data;
+      setPlayers(players.filter((p) => p.username !== u));
+      setCreator(c);
+    });
+  }, [setPlayers, players]);
+
+  useEffect(() => {
+    socket.on('start', (data) => {
+      const { hasStarted: hs } = data;
+      if (!hs) return;
+
+      setHasStarted(hs);
+    });
+  });
+
+  const joinRoom = (u, r, ps) => {
+    if (!u || !r || !ps) return;
     socket.emit('join', {
       username: u,
       roomId: r,
+      players: ps,
     });
   };
 
   const sendMessage = (message) => {
+    if (!message) return;
+
     socket.emit('message', {
       username,
       roomId,
       message,
     });
+  };
+
+  const startGame = (r, u) => {
+    socket.emit('start', {
+      roomId: r,
+      username: u,
+    });
+  };
+
+  const playComponent = () => {
+    if (!hasStarted) {
+      return (
+        <WaitingRoom
+          username={username}
+          roomId={roomId}
+          players={players}
+          creator={creator}
+          setRoomId={setRoomId}
+          sendMessage={sendMessage}
+          messageList={messageList}
+          startGame={startGame}
+        />
+      );
+    }
+    return (
+      <Game
+        username={username}
+        roomId={roomId}
+        players={players}
+        sendMessage={sendMessage}
+        messageList={messageList}
+      />
+    );
   };
 
   return (
@@ -68,6 +129,7 @@ function App() {
                 username={username}
                 roomId={roomId}
                 setUsername={setUsername}
+                setHasStarted={setHasStarted}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
                 setPlayers={setPlayers}
@@ -81,14 +143,7 @@ function App() {
           exact
           path="/play/:room"
         >
-          <WaitingRoom
-            username={username}
-            roomId={roomId}
-            creator={creator}
-            setRoomId={setRoomId}
-            sendMessage={sendMessage}
-            messageList={messageList}
-          />
+          {playComponent()}
         </Route>
       </Switch>
     </Router>

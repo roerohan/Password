@@ -1,0 +1,30 @@
+.list-row {
+    border-bottom: 1px solid #707070;
+    min-height: 14%;
+}
+
+.user-col {
+    width: 60%;
+    overflow: auto;
+}
+
+.list-username {
+    font-size: 1.25rem;
+}
+
+.player-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.player-list::-webkit-scrollbar {
+    width: 0.25rem;
+    margin-left: -10px;
+}
+
+.player-list::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    opacity: 0.8;
+    border-radius: 1.25rem;
+}
