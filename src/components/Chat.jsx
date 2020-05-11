@@ -67,8 +67,11 @@ function Chat(props) {
 
 Chat.propTypes = {
   sendMessage: propTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  messageList: propTypes.array.isRequired,
+  messageList: propTypes.arrayOf(propTypes.shape({
+    message: propTypes.string,
+    username: propTypes.string,
+    time: propTypes.string,
+  })).isRequired,
 };
 
 export default Chat;
