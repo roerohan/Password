@@ -11,6 +11,7 @@ import propTypes from 'prop-types';
 import API from '../API';
 import Chat from './Chat';
 import Heading from './Heading';
+import PlayerList from './PlayerList';
 
 import '../assets/css/WaitingRoom.css';
 
@@ -18,6 +19,7 @@ function WaitingRoom(props) {
   const {
     username,
     roomId,
+    players,
     setRoomId,
     sendMessage,
     messageList,
@@ -58,7 +60,11 @@ function WaitingRoom(props) {
     <Container fluid className="lobby-container">
       <Heading />
       <Row className="mt-4">
-        <Col md />
+        <Col md>
+          <PlayerList
+            players={players}
+          />
+        </Col>
         <Col md className="text-center mb-4">
           <Button type="submit" variant="success" onClick={handleClick}>Start</Button>
         </Col>
@@ -82,6 +88,11 @@ WaitingRoom.propTypes = {
     message: propTypes.string,
     username: propTypes.string,
     time: propTypes.string,
+  })).isRequired,
+  players: propTypes.arrayOf(propTypes.shape({
+    username: propTypes.string,
+    points: propTypes.number,
+    _id: propTypes.string,
   })).isRequired,
   startGame: propTypes.func.isRequired,
 };
