@@ -63,7 +63,7 @@ function App() {
 
       setHasStarted(hs);
     });
-  });
+  }, [setHasStarted]);
 
   const joinRoom = (u, r, ps) => {
     if (!u || !r || !ps) return;
