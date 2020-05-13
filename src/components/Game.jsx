@@ -25,6 +25,7 @@ function Game(props) {
     previousPassword,
     passwordLength,
     currentRound,
+    passwordHolder,
     sendMessage,
     sendHint,
     messageList,
@@ -90,7 +91,13 @@ function Game(props) {
               <Form onSubmit={handleSubmit} className="send-hint">
                 <Row>
                   <Col>
-                    <Form.Control type="text" placeholder="Type the hint here!" value={hint} onChange={handleChange} />
+                    <Form.Control
+                      type="text"
+                      disabled={username === passwordHolder}
+                      placeholder="Type the hint here!"
+                      value={hint}
+                      onChange={handleChange}
+                    />
                   </Col>
                   <Col xs="auto">
                     <Button type="submit" variant="success">Send</Button>
@@ -118,6 +125,7 @@ Game.propTypes = {
   previousPassword: propTypes.string.isRequired,
   passwordLength: propTypes.number.isRequired,
   currentRound: propTypes.number.isRequired,
+  passwordHolder: propTypes.string.isRequired,
   sendHint: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
   messageList: propTypes.arrayOf(propTypes.shape({

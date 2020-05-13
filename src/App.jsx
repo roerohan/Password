@@ -169,6 +169,7 @@ function App() {
         previousPassword={previousPassword}
         passwordLength={passwordLength}
         currentRound={currentRound}
+        passwordHolder={passwordHolder}
       />
     );
   };
@@ -214,6 +215,7 @@ function App() {
             previousPassword={previousPassword}
             passwordLength={passwordLength}
             currentRound={currentRound}
+            passwordHolder={passwordHolder}
           />
         </Route>
       </Switch>

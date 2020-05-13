@@ -7,3 +7,14 @@
 .display-card-body {
     overflow-y: auto;
 }
+
+.display-card-body::-webkit-scrollbar {
+    width: 0.25rem;
+    margin-left: -10px;
+}
+
+.display-card-body::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    opacity: 0.8;
+    border-radius: 1.25rem;
+}
