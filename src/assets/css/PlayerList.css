@@ -28,3 +28,8 @@
     opacity: 0.8;
     border-radius: 1.25rem;
 }
+
+.playerlist-header {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
