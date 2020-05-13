@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
-#root {
+#root, html {
 	font-size: 16px;
 	font-family: Lato, sans-serif;
 
@@ -17,19 +17,19 @@
 }
 
 @media (min-width: 1800px) {
-	html {
+	#root, html {
 		font-size: 20px;
 	}
 }
 
 @media (min-width: 2500px) {
-	html {
+	#root, html {
 		font-size: 40px;
 	}
 }
 
 @media (max-width: 768px) {
-	#root {
+	#root, html {
 		background-image: none;
 	}
 }

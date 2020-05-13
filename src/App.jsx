@@ -27,6 +27,8 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const [hasStarted, setHasStarted] = useState(false);
+  // const [passwordHolder, setPasswordHolder] = useState('');
+  const [hints, setHints] = useState([]);
 
   useEffect(() => {
     console.log(`username: ${username}`);
@@ -34,7 +36,8 @@ function App() {
     console.log(`creator: ${creator}`);
     console.log(`players: ${players.map((player) => player.username)}`);
     console.log(`started: ${hasStarted}`);
-  }, [username, roomId, creator, players, hasStarted]);
+    console.log(`hints: ${hints}`);
+  }, [username, roomId, creator, players, hasStarted, hints]);
 
   useEffect(() => {
     socket.on('message', (data) => {
@@ -65,6 +68,13 @@ function App() {
     });
   }, [setHasStarted]);
 
+  useEffect(() => {
+    socket.on('hint', (data) => {
+      const { hints: h } = data;
+      setHints(h);
+    });
+  });
+
   const joinRoom = (u, r, ps) => {
     if (!u || !r || !ps) return;
     socket.emit('join', {
@@ -81,6 +91,16 @@ function App() {
       username,
       roomId,
       message,
+    });
+  };
+
+  const sendHint = (hint, r, u) => {
+    if (!hint || !r || !u) return;
+
+    socket.emit('hint', {
+      hint,
+      roomId: r,
+      username: u,
     });
   };
 
@@ -111,6 +131,8 @@ function App() {
         username={username}
         roomId={roomId}
         players={players}
+        hints={hints}
+        sendHint={sendHint}
         sendMessage={sendMessage}
         messageList={messageList}
       />
@@ -144,6 +166,18 @@ function App() {
           path="/play/:room"
         >
           {playComponent()}
+        </Route>
+
+        <Route exact path="/test">
+          <Game
+            username={username}
+            roomId={roomId}
+            players={players}
+            hints={hints}
+            sendHint={sendHint}
+            sendMessage={sendMessage}
+            messageList={messageList}
+          />
         </Route>
       </Switch>
     </Router>
