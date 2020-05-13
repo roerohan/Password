@@ -12,6 +12,7 @@ import WaitingRoom from './components/WaitingRoom';
 import Game from './components/Game';
 
 import './assets/css/App.css';
+import API from './API';
 
 const socket = socketio(process.env.REACT_APP_SOCKET_SERVER);
 
@@ -44,7 +45,7 @@ function App() {
       const { username: u, message: m, time } = data;
       setMessageList((messageL) => messageL.concat({ username: u, message: m, time }));
     });
-  }, [setMessageList]);
+  }, []);
 
   useEffect(() => {
     socket.on('join', (data) => {
@@ -57,16 +58,28 @@ function App() {
       setPlayers(players.filter((p) => p.username !== u));
       setCreator(c);
     });
-  }, [setPlayers, players]);
+  }, [players]);
 
   useEffect(() => {
     socket.on('start', (data) => {
-      const { hasStarted: hs } = data;
+      const { hasStarted: hs, roomId: r } = data;
       if (!hs) return;
 
       setHasStarted(hs);
+
+      const fetchData = async () => {
+        if (!username) return;
+
+        const response = (await API.post('/game/next', {
+          username,
+          roomId: r,
+        })).data;
+        console.log(response);
+      };
+
+      fetchData();
     });
-  }, [setHasStarted]);
+  }, [username]);
 
   useEffect(() => {
     socket.on('hint', (data) => {
