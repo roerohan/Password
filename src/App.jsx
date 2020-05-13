@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -68,6 +68,26 @@ function App() {
     });
   }, [players]);
 
+  const fetchData = useCallback(async (r) => {
+    if (!username) return;
+
+    const response = (await API.post('/game/next', {
+      username,
+      roomId: r,
+    })).data;
+
+    const {
+      passwordHolder: ph,
+      previousPassword: pp,
+      currentRound: cr,
+      passwordLength: pl,
+    } = response.message;
+    setPasswordHolder(ph);
+    setPreviousPassword(pp);
+    setCurrentRound(cr);
+    setPasswordLength(pl);
+  }, [username]);
+
   useEffect(() => {
     socket.on('start', (data) => {
       const { hasStarted: hs, roomId: r } = data;
@@ -75,29 +95,9 @@ function App() {
 
       setHasStarted(hs);
 
-      const fetchData = async () => {
-        if (!username) return;
-
-        const response = (await API.post('/game/next', {
-          username,
-          roomId: r,
-        })).data;
-
-        const {
-          passwordHolder: ph,
-          previousPassword: pp,
-          currentRound: cr,
-          passwordLength: pl,
-        } = response.message;
-        setPasswordHolder(ph);
-        setPreviousPassword(pp);
-        setCurrentRound(cr);
-        setPasswordLength(pl);
-      };
-
-      fetchData();
+      fetchData(r);
     });
-  }, [username]);
+  }, [username, fetchData]);
 
   useEffect(() => {
     socket.on('hint', (data) => {
@@ -166,6 +166,9 @@ function App() {
         sendHint={sendHint}
         sendMessage={sendMessage}
         messageList={messageList}
+        previousPassword={previousPassword}
+        passwordLength={passwordLength}
+        currentRound={currentRound}
       />
     );
   };
@@ -208,6 +211,9 @@ function App() {
             sendHint={sendHint}
             sendMessage={sendMessage}
             messageList={messageList}
+            previousPassword={previousPassword}
+            passwordLength={passwordLength}
+            currentRound={currentRound}
           />
         </Route>
       </Switch>

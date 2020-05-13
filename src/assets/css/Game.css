@@ -3,6 +3,10 @@
     font-size: 1.25rem;
 }
 
+.blanks {
+    font-size: 3rem;
+}
+
 .hint-card {
     height: 32vh;
 }

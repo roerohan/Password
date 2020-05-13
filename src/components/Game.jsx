@@ -22,6 +22,9 @@ function Game(props) {
     roomId,
     players,
     hints,
+    previousPassword,
+    passwordLength,
+    currentRound,
     sendMessage,
     sendHint,
     messageList,
@@ -29,6 +32,7 @@ function Game(props) {
 
   const [hint, setHint] = useState('');
 
+  console.log(currentRound, passwordLength, previousPassword);
   const handleChange = ({ target }) => setHint(target.value);
 
   const handleSubmit = async (e) => {
@@ -43,19 +47,28 @@ function Game(props) {
     if (response.success) sendHint(response.message.hint, username, roomId);
   };
 
+  const renderBlanks = () => {
+    const blanks = new Array(passwordLength).fill(
+      '_ ',
+    );
+    return blanks.map((blank) => blank);
+  };
+
   return (
     <Container fluid className="lobby-container">
       <Heading />
       <Row className="mt-4">
         <Col md>
           <PlayerList
+            header={`Round ${currentRound}`}
             players={players}
           />
         </Col>
         <Col md className="mb-4 d-flex flex-column justify-content-center">
           <GameCard>
             <GameCard.Body className="text-center password-card">
-              The Password is:
+              <div>The Password is:</div>
+              <div className="blanks">{renderBlanks()}</div>
             </GameCard.Body>
           </GameCard>
           <GameCard className="mt-2">
@@ -102,6 +115,9 @@ Game.propTypes = {
   username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
   hints: propTypes.arrayOf(propTypes.string).isRequired,
+  previousPassword: propTypes.string.isRequired,
+  passwordLength: propTypes.number.isRequired,
+  currentRound: propTypes.number.isRequired,
   sendHint: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
   messageList: propTypes.arrayOf(propTypes.shape({
