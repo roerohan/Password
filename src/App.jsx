@@ -28,8 +28,11 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const [hasStarted, setHasStarted] = useState(false);
-  // const [passwordHolder, setPasswordHolder] = useState('');
+  const [passwordHolder, setPasswordHolder] = useState('');
   const [hints, setHints] = useState([]);
+  const [previousPassword, setPreviousPassword] = useState('');
+  const [passwordLength, setPasswordLength] = useState(0);
+  const [currentRound, setCurrentRound] = useState(0);
 
   useEffect(() => {
     console.log(`username: ${username}`);
@@ -38,7 +41,12 @@ function App() {
     console.log(`players: ${players.map((player) => player.username)}`);
     console.log(`started: ${hasStarted}`);
     console.log(`hints: ${hints}`);
-  }, [username, roomId, creator, players, hasStarted, hints]);
+    console.log(`passwordHolder: ${passwordHolder}`);
+    console.log(`previousPassword: ${previousPassword}`);
+    console.log(`passwordLength: ${passwordLength}`);
+    console.log(`currentRound: ${currentRound}`);
+  }, [username, roomId, creator, players, hasStarted, hints,
+    passwordHolder, previousPassword, passwordLength, currentRound]);
 
   useEffect(() => {
     socket.on('message', (data) => {
@@ -74,7 +82,17 @@ function App() {
           username,
           roomId: r,
         })).data;
-        console.log(response);
+
+        const {
+          passwordHolder: ph,
+          previousPassword: pp,
+          currentRound: cr,
+          passwordLength: pl,
+        } = response.message;
+        setPasswordHolder(ph);
+        setPreviousPassword(pp);
+        setCurrentRound(cr);
+        setPasswordLength(pl);
       };
 
       fetchData();
@@ -86,7 +104,7 @@ function App() {
       const { hints: h } = data;
       setHints(h);
     });
-  });
+  }, []);
 
   const joinRoom = (u, r, ps) => {
     if (!u || !r || !ps) return;
