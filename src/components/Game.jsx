@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -29,9 +29,15 @@ function Game(props) {
     sendMessage,
     sendHint,
     messageList,
+    fetchData,
   } = props;
 
   const [hint, setHint] = useState('');
+
+  useEffect(() => {
+    const fetch = async () => { await fetchData(); };
+    fetch();
+  }, [fetchData]);
 
   console.log(currentRound, passwordLength, previousPassword);
   const handleChange = ({ target }) => setHint(target.value);
@@ -93,7 +99,7 @@ function Game(props) {
                   <Col>
                     <Form.Control
                       type="text"
-                      disabled={username === passwordHolder}
+                      disabled={username !== passwordHolder}
                       placeholder="Type the hint here!"
                       value={hint}
                       onChange={handleChange}
@@ -128,6 +134,7 @@ Game.propTypes = {
   passwordHolder: propTypes.string.isRequired,
   sendHint: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
+  fetchData: propTypes.func.isRequired,
   messageList: propTypes.arrayOf(propTypes.shape({
     message: propTypes.string,
     username: propTypes.string,
