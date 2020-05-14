@@ -1,0 +1,28 @@
+.password-card {
+    height: 17vh;
+    font-size: 1.25rem;
+}
+
+.blanks {
+    font-size: 3rem;
+}
+
+.hint-card {
+    height: 32vh;
+}
+
+.hint-pretext {
+    font-size: 1.25rem;
+}
+
+.current-hint {
+    font-size: 2.5rem;
+}
+
+.hints {
+    overflow: auto;
+}
+
+.hint-card input[type="text"]::placeholder {
+    font-style: italic;
+}
