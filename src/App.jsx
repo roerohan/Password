@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -53,60 +53,36 @@ function App() {
       const { username: u, message: m, time } = data;
       setMessageList((messageL) => messageL.concat({ username: u, message: m, time }));
     });
-  }, []);
 
-  useEffect(() => {
     socket.on('join', (data) => {
       const { players: ps } = data;
       setPlayers(ps);
     });
 
-    socket.on('disconnect', (data) => {
-      const { username: u, creator: c } = data;
-      setPlayers(players.filter((p) => p.username !== u));
-      setCreator(c);
-    });
-  }, [players]);
-
-  const fetchData = useCallback(async () => {
-    if (!username) return;
-
-    const response = (await API.post('/game/next', {
-      username,
-      roomId,
-    })).data;
-
-    if (!response.success) {
-      console.error(response.message);
-    }
-
-    const {
-      passwordHolder: ph,
-      previousPassword: pp,
-      currentRound: cr,
-      passwordLength: pl,
-    } = response.message;
-    setPasswordHolder(ph);
-    setPreviousPassword(pp);
-    setCurrentRound(cr);
-    setPasswordLength(pl);
-  }, [username, roomId]);
-
-  useEffect(() => {
     socket.on('start', (data) => {
       const { hasStarted: hs } = data;
       if (!hs) return;
 
       setHasStarted(hs);
     });
-  }, [username]);
 
-  useEffect(() => {
+    socket.on('next', () => {
+      console.log('Execute fetchData() again.');
+    });
+
     socket.on('hint', (data) => {
       const { hints: h } = data;
       setHints(h);
     });
   }, []);
+
+  useEffect(() => {
+    socket.on('disconnect', (data) => {
+      const { username: u, creator: c } = data;
+      setPlayers(players.filter((p) => p.username !== u));
+      setCreator(c);
+    });
+  }, [players]);
 
   const joinRoom = (u, r, ps) => {
     if (!u || !r || !ps) return;
@@ -142,6 +118,31 @@ function App() {
       roomId: r,
       username: u,
     });
+  };
+
+  const fetchData = async (u, r) => {
+    if (!u) return;
+
+    const response = (await API.post('/game/next', {
+      username: u,
+      roomId: r,
+    })).data;
+
+    if (!response.success) {
+      console.error(response.message);
+    }
+
+    console.log('FETCHED DATA');
+    const {
+      passwordHolder: ph,
+      previousPassword: pp,
+      currentRound: cr,
+      passwordLength: pl,
+    } = response.message;
+    setPasswordHolder(ph);
+    setPreviousPassword(pp);
+    setCurrentRound(cr);
+    setPasswordLength(pl);
   };
 
   const playComponent = () => {
