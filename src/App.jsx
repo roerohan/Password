@@ -68,13 +68,17 @@ function App() {
     });
   }, [players]);
 
-  const fetchData = useCallback(async (r) => {
+  const fetchData = useCallback(async () => {
     if (!username) return;
 
     const response = (await API.post('/game/next', {
       username,
-      roomId: r,
+      roomId,
     })).data;
+
+    if (!response.success) {
+      console.error(response.message);
+    }
 
     const {
       passwordHolder: ph,
@@ -86,18 +90,16 @@ function App() {
     setPreviousPassword(pp);
     setCurrentRound(cr);
     setPasswordLength(pl);
-  }, [username]);
+  }, [username, roomId]);
 
   useEffect(() => {
     socket.on('start', (data) => {
-      const { hasStarted: hs, roomId: r } = data;
+      const { hasStarted: hs } = data;
       if (!hs) return;
 
       setHasStarted(hs);
-
-      fetchData(r);
     });
-  }, [username, fetchData]);
+  }, [username]);
 
   useEffect(() => {
     socket.on('hint', (data) => {
@@ -170,6 +172,7 @@ function App() {
         passwordLength={passwordLength}
         currentRound={currentRound}
         passwordHolder={passwordHolder}
+        fetchData={fetchData}
       />
     );
   };
@@ -216,6 +219,7 @@ function App() {
             passwordLength={passwordLength}
             currentRound={currentRound}
             passwordHolder={passwordHolder}
+            fetchData={fetchData}
           />
         </Route>
       </Switch>
