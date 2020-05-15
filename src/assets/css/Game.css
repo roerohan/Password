@@ -1,3 +1,7 @@
+.game-container {
+    max-width: 80vw;
+}
+
 .password-card {
     height: 17vh;
     font-size: 1.25rem;
@@ -36,4 +40,8 @@
     background-color: #ffffff;
     opacity: 0.8;
     border-radius: 1.25rem;
+}
+
+.game-chat {
+    height: 70vh;
 }

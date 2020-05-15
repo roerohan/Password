@@ -82,7 +82,7 @@ function Game(props) {
   );
 
   return (
-    <Container fluid className="lobby-container">
+    <Container fluid className="game-container">
       <Heading />
       <Row className="mt-4">
         <Col md>
@@ -128,7 +128,7 @@ function Game(props) {
             </GameCard.Body>
           </GameCard>
         </Col>
-        <Col>
+        <Col className="game-chat">
           <Chat
             sendMessage={sendMessage}
             messageList={messageList}

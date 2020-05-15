@@ -12,6 +12,7 @@ import API from '../API';
 import Chat from './Chat';
 import Heading from './Heading';
 import PlayerList from './PlayerList';
+import GameCard from './GameCard';
 
 import '../assets/css/WaitingRoom.css';
 
@@ -60,15 +61,18 @@ function WaitingRoom(props) {
     <Container fluid className="lobby-container">
       <Heading />
       <Row className="mt-4">
-        <Col md>
+        <Col md className="lobby-players">
           <PlayerList
             players={players}
           />
+          <Button type="submit" variant="success" onClick={handleClick}>Play</Button>
         </Col>
-        <Col md className="text-center mb-4">
-          <Button type="submit" variant="success" onClick={handleClick}>Start</Button>
-        </Col>
-        <Col>
+        <Col className="d-flex flex-column">
+          <GameCard>
+            <GameCard.Body>
+              Rules
+            </GameCard.Body>
+          </GameCard>
           <Chat
             sendMessage={sendMessage}
             messageList={messageList}
