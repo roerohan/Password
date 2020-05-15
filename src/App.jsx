@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -114,18 +114,19 @@ function App() {
   };
 
   const startGame = (r, u) => {
+    console.log('GAME START');
     socket.emit('start', {
       roomId: r,
       username: u,
     });
   };
 
-  const fetchData = async (u, r) => {
-    if (!u) return;
+  const fetchData = useCallback(async () => {
+    if (!username) return;
 
     const response = (await API.post('/game/next', {
-      username: u,
-      roomId: r,
+      username,
+      roomId,
     })).data;
 
     if (!response.success) {
@@ -143,7 +144,7 @@ function App() {
     setPreviousPassword(pp);
     setCurrentRound(cr);
     setPasswordLength(pl);
-  };
+  }, [username, roomId]);
 
   const playComponent = () => {
     if (!hasStarted) {

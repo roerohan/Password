@@ -35,9 +35,9 @@ function Game(props) {
   const [hint, setHint] = useState('');
 
   useEffect(() => {
-    const fetch = async () => { await fetchData(username, roomId); };
+    const fetch = async () => { await fetchData(); };
     fetch();
-  }, [fetchData, username, roomId]);
+  }, [fetchData]);
 
   console.log(currentRound, passwordLength, previousPassword);
   const handleChange = ({ target }) => setHint(target.value);

@@ -26,3 +26,14 @@
 .hint-card input[type="text"]::placeholder {
     font-style: italic;
 }
+
+.hints::-webkit-scrollbar {
+    width: 0.25rem;
+    margin-left: -10px;
+}
+
+.hints::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    opacity: 0.8;
+    border-radius: 1.25rem;
+}
