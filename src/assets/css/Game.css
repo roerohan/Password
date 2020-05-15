@@ -7,6 +7,10 @@
     font-size: 1.25rem;
 }
 
+.current-password {
+    color: #f3f95e;
+}
+
 .blanks {
     font-size: 3rem;
 }

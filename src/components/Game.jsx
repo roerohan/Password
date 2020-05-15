@@ -62,7 +62,13 @@ function Game(props) {
   };
 
   const renderBlanks = () => {
-    if (currentPassword) return currentPassword;
+    if (currentPassword) {
+      return (
+        <div className="current-password">
+          {currentPassword}
+        </div>
+      );
+    }
     const blanks = new Array(passwordLength).fill(
       '_ ',
     );
