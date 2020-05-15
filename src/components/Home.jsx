@@ -126,7 +126,8 @@ function Home(props) {
                 <li>The player will type a word related to the password.</li>
                 <li>Rest of the players will have to guess the &lsquo;password&rsquo;.</li>
                 <li>The earlier you guess, the higher you score.</li>
-                <li>Hints will be displayed in 15 seconds intervals.</li>
+                <li>You are allowed 4 hints.</li>
+                <li>More the number of hints you see, lesser the points.</li>
               </ol>
             </GameCard.Body>
           </GameCard>
