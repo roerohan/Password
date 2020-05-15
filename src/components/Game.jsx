@@ -23,6 +23,7 @@ function Game(props) {
     players,
     hints,
     previousPassword,
+    currentPassword,
     passwordLength,
     currentRound,
     passwordHolder,
@@ -61,6 +62,7 @@ function Game(props) {
   };
 
   const renderBlanks = () => {
+    if (currentPassword) return currentPassword;
     const blanks = new Array(passwordLength).fill(
       '_ ',
     );
@@ -142,6 +144,7 @@ Game.propTypes = {
   roomId: propTypes.string.isRequired,
   hints: propTypes.arrayOf(propTypes.string).isRequired,
   previousPassword: propTypes.string.isRequired,
+  currentPassword: propTypes.string.isRequired,
   passwordLength: propTypes.number.isRequired,
   currentRound: propTypes.number.isRequired,
   passwordHolder: propTypes.string.isRequired,

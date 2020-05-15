@@ -31,6 +31,7 @@ function App() {
   const [passwordHolder, setPasswordHolder] = useState('');
   const [hints, setHints] = useState([]);
   const [previousPassword, setPreviousPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [passwordLength, setPasswordLength] = useState(0);
   const [currentRound, setCurrentRound] = useState(0);
 
@@ -68,6 +69,11 @@ function App() {
 
     socket.on('next', () => {
       console.log('Execute fetchData() again.');
+    });
+
+    socket.on('correct', (data) => {
+      const { players: ps } = data;
+      setPlayers(ps);
     });
 
     socket.on('hint', (data) => {
@@ -138,11 +144,13 @@ function App() {
     const {
       passwordHolder: ph,
       previousPassword: pp,
+      currentPassword: cp,
       currentRound: cr,
       passwordLength: pl,
     } = response.message;
     setPasswordHolder(ph);
     setPreviousPassword(pp);
+    setCurrentPassword(cp);
     setCurrentRound(cr);
     setPasswordLength(pl);
   }, [username, roomId]);
@@ -172,6 +180,7 @@ function App() {
         sendMessage={sendMessage}
         messageList={messageList}
         previousPassword={previousPassword}
+        currentPassword={currentPassword}
         passwordLength={passwordLength}
         currentRound={currentRound}
         passwordHolder={passwordHolder}
@@ -219,6 +228,7 @@ function App() {
             sendMessage={sendMessage}
             messageList={messageList}
             previousPassword={previousPassword}
+            currentPassword={currentPassword}
             passwordLength={passwordLength}
             currentRound={currentRound}
             passwordHolder={passwordHolder}
