@@ -17,7 +17,7 @@ function PlayerList(props) {
     header,
   } = props;
 
-  const userBox = (username, points, id) => (
+  const userBox = (username, points, index, id) => (
     <Row key={id} className="list-row py-2">
       <Col className="m-auto"><FontAwesomeIcon icon={faUserCircle} size="3x" /></Col>
       <Col sm="auto" className="user-col m-auto">
@@ -28,7 +28,10 @@ function PlayerList(props) {
           {points}
         </div>
       </Col>
-      <Col className="m-auto">#1</Col>
+      <Col className="m-auto">
+        #
+        {index + 1}
+      </Col>
     </Row>
   );
 
@@ -44,7 +47,7 @@ function PlayerList(props) {
     <GameCard className="chat">
       {renderHeader()}
       <GameCard.Body className="text-center">
-        <div className="player-list">{players.map((player) => userBox(player.username, player.points, player._id))}</div>
+        <div className="player-list">{players.map((player, index) => userBox(player.username, player.points, index, player._id))}</div>
       </GameCard.Body>
     </GameCard>
   );
