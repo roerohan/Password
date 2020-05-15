@@ -4,6 +4,8 @@ import {
   Row,
   Col,
 } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 
 import GameCard from './GameCard';
 
@@ -16,8 +18,8 @@ function PlayerList(props) {
   } = props;
 
   const userBox = (username, points, id) => (
-    <Row key={id} className="list-row">
-      <Col className="m-auto">Av</Col>
+    <Row key={id} className="list-row py-2">
+      <Col className="m-auto"><FontAwesomeIcon icon={faUserCircle} size="3x" /></Col>
       <Col sm="auto" className="user-col m-auto">
         <div className="list-username">{username}</div>
         <div className="list-points">
