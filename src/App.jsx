@@ -206,7 +206,6 @@ function App() {
                 setHasStarted={setHasStarted}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
-                setPlayers={setPlayers}
                 joinRoom={joinRoom}
               />
             )
