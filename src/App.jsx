@@ -72,6 +72,7 @@ function App() {
 
     socket.on('hint', (data) => {
       const { hints: h } = data;
+      console.log('RECEIVED HINT');
       setHints(h);
     });
   }, []);
@@ -103,18 +104,18 @@ function App() {
     });
   };
 
-  const sendHint = (hint, r, u) => {
-    if (!hint || !r || !u) return;
-
+  const sendHint = (h, r, u) => {
+    if (!h || !r || !u) return;
+    console.log('RAN');
     socket.emit('hint', {
-      hint,
+      passwordHolder,
+      hints: h,
       roomId: r,
       username: u,
     });
   };
 
   const startGame = (r, u) => {
-    console.log('GAME START');
     socket.emit('start', {
       roomId: r,
       username: u,

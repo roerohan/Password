@@ -39,7 +39,7 @@ function Game(props) {
     fetch();
   }, [fetchData]);
 
-  console.log(currentRound, passwordLength, previousPassword);
+  console.log(hints, previousPassword);
   const handleChange = ({ target }) => setHint(target.value);
 
   const handleSubmit = async (e) => {
@@ -51,7 +51,13 @@ function Game(props) {
       hint,
     })).data;
 
-    if (response.success) sendHint(response.message.hint, username, roomId);
+    if (!response.success) {
+      console.error(response.message);
+      return;
+    }
+
+    sendHint(response.message.hints, roomId, username);
+    setHint('');
   };
 
   const renderBlanks = () => {
@@ -60,6 +66,18 @@ function Game(props) {
     );
     return blanks.map((blank) => blank);
   };
+
+  const renderPreiviousHints = () => (hints.map((h, index) => (
+    <div key={Math.random().toString()}>
+      Hint
+      {' '}
+      {index + 1}
+      :
+      {' '}
+      {h}
+    </div>
+  ))
+  );
 
   return (
     <Container fluid className="lobby-container">
@@ -83,15 +101,10 @@ function Game(props) {
               <div className="hints">
                 <div className="text-center">
                   <div className="hint-pretext">The current hint is:</div>
-                  <div className="current-hint mb-2">Bath</div>
+                  <div className="current-hint mb-2">{hints.slice(-1)[0]}</div>
                 </div>
                 <div className="prev-hint-container">
-                  <div>
-                    The 1st hint was: Washroom
-                    {' '}
-                    {hints}
-                  </div>
-                  <div>The 2st hint was: Shower</div>
+                  {renderPreiviousHints()}
                 </div>
               </div>
               <Form onSubmit={handleSubmit} className="send-hint">
