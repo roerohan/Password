@@ -25,7 +25,7 @@ function App() {
 
   const [roomId, setRoomId] = useState('');
   const [creator, setCreator] = useState('');
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayersState] = useState([]);
   const [messageList, setMessageList] = useState([]);
   const [hasStarted, setHasStarted] = useState(false);
   const [passwordHolder, setPasswordHolder] = useState('');
@@ -48,6 +48,11 @@ function App() {
     console.log(`currentRound: ${currentRound}`);
   }, [username, roomId, creator, players, hasStarted, hints,
     passwordHolder, previousPassword, passwordLength, currentRound]);
+
+  const setPlayers = (ps) => {
+    ps.sort((a, b) => b.points - a.points);
+    setPlayersState(ps);
+  };
 
   useEffect(() => {
     socket.on('message', (data) => {
