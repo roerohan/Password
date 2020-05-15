@@ -2,6 +2,18 @@
   "name": "password",
   "version": "0.1.0",
   "private": true,
+  "description": "React.js Client for Password game.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roerohan/Password.git"
+  },
+  "author": "https://github.com/roerohan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roerohan/Password/issues"
+  },
+  "homepage": ".",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
