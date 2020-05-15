@@ -68,9 +68,12 @@ function WaitingRoom(props) {
           <Button type="submit" variant="success" onClick={handleClick}>Play</Button>
         </Col>
         <Col className="d-flex flex-column">
-          <GameCard>
+          <GameCard className="mb-2">
+            <GameCard.Header>
+              Settings
+            </GameCard.Header>
             <GameCard.Body>
-              Rules
+              Stuff
             </GameCard.Body>
           </GameCard>
           <Chat
