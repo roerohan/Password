@@ -147,12 +147,14 @@ function App() {
       currentPassword: cp,
       currentRound: cr,
       passwordLength: pl,
+      hints: h,
     } = response.message;
     setPasswordHolder(ph);
     setPreviousPassword(pp);
     setCurrentPassword(cp);
     setCurrentRound(cr);
     setPasswordLength(pl);
+    setHints(h);
   }, [username, roomId]);
 
   const playComponent = () => {
