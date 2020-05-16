@@ -63,13 +63,14 @@ function WaitingRoom(props) {
       <Row className="mt-4">
         <Col md className="lobby-players">
           <PlayerList
+            header="Joined"
             players={players}
           />
           <Button type="submit" variant="success" onClick={handleClick}>Play</Button>
         </Col>
         <Col className="d-flex flex-column">
-          <GameCard className="mb-2">
-            <GameCard.Header>
+          <GameCard className="mb-2 settings">
+            <GameCard.Header className="settings-header text-center">
               Settings
             </GameCard.Header>
             <GameCard.Body>

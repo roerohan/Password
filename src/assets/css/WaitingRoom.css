@@ -5,3 +5,9 @@
 .lobby-players {
     height: 60vh;
 }
+
+.settings-header {
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-bottom: 1px solid #707070;
+}
