@@ -2,6 +2,10 @@
     max-width: 80vw;
 }
 
+.game-container .user-col {
+    width: 50%;
+}
+
 .password-card {
     height: 17vh;
     font-size: 1.25rem;
