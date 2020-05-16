@@ -66,4 +66,8 @@
     .blanks {
         max-width: 70vw;
     }
+
+    .hints {
+        max-width: 70vw;
+    }
 }
