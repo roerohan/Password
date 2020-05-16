@@ -8,7 +8,9 @@ import GameCard from './GameCard';
 import '../assets/css/Timer.css';
 
 function Timer(props) {
-  const { roundEnd, currentRound, className } = props;
+  const {
+    roundEnd, currentRound, rounds, className,
+  } = props;
 
   const calculateTimeLeft = () => {
     const timeLeft = Math.floor((roundEnd - new Date().getTime()) / 1000);
@@ -40,7 +42,9 @@ function Timer(props) {
           {' '}
           {currentRound}
           {' '}
-          of 3
+          of
+          {' '}
+          {rounds}
         </div>
       </GameCard.Body>
     </GameCard>
@@ -52,8 +56,10 @@ Timer.defaultProps = {
 };
 
 Timer.propTypes = {
+  rounds: propTypes.number.isRequired,
   roundEnd: propTypes.number.isRequired,
   currentRound: propTypes.number.isRequired,
+
   className: propTypes.string,
 };
 

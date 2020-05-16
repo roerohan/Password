@@ -6,8 +6,6 @@
     height: 70vh;
 }
 
-.settings-header {
-    font-size: 1.4rem;
-    font-weight: bold;
-    border-bottom: 1px solid #707070;
+.lobby-players .rank {
+    display: none;
 }

@@ -34,6 +34,7 @@ function Game(props) {
     fetchData,
     solvedBy,
     roundEnd,
+    rounds,
   } = props;
 
   const [hint, setHint] = useState('');
@@ -153,6 +154,7 @@ function Game(props) {
           <Timer
             className="mt-4 w-75 mx-auto"
             roundEnd={roundEnd}
+            rounds={rounds}
             currentRound={currentRound}
           />
         </Col>
@@ -180,6 +182,7 @@ Game.propTypes = {
   sendHint: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
   fetchData: propTypes.func.isRequired,
+  rounds: propTypes.number.isRequired,
   solvedBy: propTypes.arrayOf(propTypes.string).isRequired,
   messageList: propTypes.arrayOf(propTypes.shape({
     message: propTypes.string,

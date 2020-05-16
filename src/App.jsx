@@ -34,9 +34,10 @@ function App() {
   const [messageList, setMessageList] = useState([]);
   const [solvedBy, setSolvedBy] = useState([]);
 
-  const [passwordLength, setPasswordLength] = useState(0);
-  const [currentRound, setCurrentRound] = useState(0);
+  const [rounds, setRounds] = useState(0);
   const [roundEnd, setRoundEnd] = useState(0);
+  const [currentRound, setCurrentRound] = useState(0);
+  const [passwordLength, setPasswordLength] = useState(0);
 
   const [hasStarted, setHasStarted] = useState(false);
 
@@ -160,6 +161,7 @@ function App() {
       passwordLength: pl,
       hints: h,
       roundEnd: re,
+      rounds: r,
     } = response.message;
 
     setPasswordHolder(ph);
@@ -169,6 +171,7 @@ function App() {
     setPasswordLength(pl);
     setHints(h);
     setRoundEnd(re);
+    setRounds(r);
   }, [username, roomId]);
 
   const playComponent = () => {
@@ -203,6 +206,7 @@ function App() {
         fetchData={fetchData}
         solvedBy={solvedBy}
         roundEnd={roundEnd}
+        rounds={rounds}
       />
     );
   };

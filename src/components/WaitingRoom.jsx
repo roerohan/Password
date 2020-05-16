@@ -12,7 +12,7 @@ import API from '../API';
 import Chat from './Chat';
 import Heading from './Heading';
 import PlayerList from './PlayerList';
-import GameCard from './GameCard';
+import Settings from './Settings';
 
 import '../assets/css/WaitingRoom.css';
 
@@ -38,10 +38,12 @@ function WaitingRoom(props) {
     }
   }, [room, currentRoom, setRoomId, history]);
 
+  const [rounds, setRounds] = useState(3);
+  console.log(rounds);
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      const response = (await API.post('/game/start', { roomId, username })).data;
+      const response = (await API.post('/game/start', { roomId, username, rounds })).data;
       if (!response.success) {
         console.error(response.message);
         return;
@@ -71,15 +73,11 @@ function WaitingRoom(props) {
           />
         </Col>
         <Col className="d-flex flex-column">
-          <GameCard className="mb-2 settings">
-            <GameCard.Header className="settings-header text-center">
-              Settings
-            </GameCard.Header>
-            <GameCard.Body>
-              Stuff
-            </GameCard.Body>
-          </GameCard>
+          <Settings
+            setRounds={setRounds}
+          />
           <Chat
+            className="lobby-chat"
             sendMessage={sendMessage}
             messageList={messageList}
           />
