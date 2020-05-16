@@ -15,6 +15,7 @@ import GameCard from './GameCard';
 import API from '../API';
 
 import '../assets/css/Game.css';
+import Timer from './Timer';
 
 function Game(props) {
   const {
@@ -110,11 +111,10 @@ function Game(props) {
       <Row className="mt-4">
         <Col md>
           <PlayerList
-            header={`Round ${currentRound}`}
             players={players}
           />
         </Col>
-        <Col md className="mb-4 d-flex flex-column justify-content-center">
+        <Col md className="d-flex flex-column justify-content-center">
           <GameCard>
             <GameCard.Body className="text-center password-card">
               <div>The Password is:</div>
@@ -150,6 +150,11 @@ function Game(props) {
               </Form>
             </GameCard.Body>
           </GameCard>
+          <Timer
+            className="mt-4 w-75 mx-auto"
+            roundEnd={roundEnd}
+            currentRound={currentRound}
+          />
         </Col>
         <Col className="game-chat">
           <Chat
