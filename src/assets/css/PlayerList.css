@@ -12,6 +12,10 @@
     font-size: 1.25rem;
 }
 
+.rank {
+    font-size: 1.25rem;
+}
+
 .player-list {
     overflow-y: auto;
     overflow-x: hidden;

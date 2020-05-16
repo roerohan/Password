@@ -29,7 +29,7 @@ function PlayerList(props) {
           {points}
         </div>
       </Col>
-      <Col className="m-auto">
+      <Col className="m-auto rank">
         #
         {index + 1}
       </Col>
