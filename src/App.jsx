@@ -41,20 +41,6 @@ function App() {
 
   const [hasStarted, setHasStarted] = useState(false);
 
-  useEffect(() => {
-    console.log(`username: ${username}`);
-    console.log(`roomId: ${roomId}`);
-    console.log(`creator: ${creator}`);
-    console.log(`players: ${players.map((player) => player.username)}`);
-    console.log(`started: ${hasStarted}`);
-    console.log(`hints: ${hints}`);
-    console.log(`passwordHolder: ${passwordHolder}`);
-    console.log(`previousPassword: ${previousPassword}`);
-    console.log(`passwordLength: ${passwordLength}`);
-    console.log(`currentRound: ${currentRound}`);
-  }, [username, roomId, creator, players, hasStarted, hints,
-    passwordHolder, previousPassword, passwordLength, currentRound]);
-
   const setPlayers = (ps) => {
     ps.sort((a, b) => b.points - a.points);
     setPlayersState(ps);
@@ -76,10 +62,6 @@ function App() {
       if (!hs) return;
 
       setHasStarted(hs);
-    });
-
-    socket.on('next', () => {
-      console.log('Execute fetchData() again.');
     });
 
     socket.on('correct', (data) => {
@@ -154,59 +136,65 @@ function App() {
 
     console.log('FETCHED DATA');
     const {
-      passwordHolder: ph,
-      previousPassword: pp,
-      currentPassword: cp,
-      currentRound: cr,
-      passwordLength: pl,
       hints: h,
-      roundEnd: re,
       rounds: r,
+      roundEnd: re,
+      currentRound: cr,
+      passwordHolder: ph,
+      passwordLength: pl,
+      currentPassword: cp,
+      previousPassword: pp,
     } = response.message;
 
-    setPasswordHolder(ph);
-    setPreviousPassword(pp);
-    setCurrentPassword(cp);
+    setHints(h);
+    setRounds(r);
+    setRoundEnd(re);
     setCurrentRound(cr);
     setPasswordLength(pl);
-    setHints(h);
-    setRoundEnd(re);
-    setRounds(r);
+    setPasswordHolder(ph);
+    setCurrentPassword(cp);
+    setPreviousPassword(pp);
   }, [username, roomId]);
+
+  useEffect(() => {
+    socket.on('next', async () => {
+      await fetchData();
+    });
+  }, [fetchData]);
 
   const playComponent = () => {
     if (!hasStarted) {
       return (
         <WaitingRoom
-          username={username}
           roomId={roomId}
-          players={players}
           creator={creator}
+          players={players}
+          username={username}
+          startGame={startGame}
           setRoomId={setRoomId}
           sendMessage={sendMessage}
           messageList={messageList}
-          startGame={startGame}
         />
       );
     }
     return (
       <Game
-        username={username}
-        roomId={roomId}
-        players={players}
         hints={hints}
+        roomId={roomId}
+        rounds={rounds}
+        players={players}
+        username={username}
         sendHint={sendHint}
+        roundEnd={roundEnd}
+        solvedBy={solvedBy}
+        fetchData={fetchData}
         sendMessage={sendMessage}
         messageList={messageList}
-        previousPassword={previousPassword}
-        currentPassword={currentPassword}
-        passwordLength={passwordLength}
         currentRound={currentRound}
         passwordHolder={passwordHolder}
-        fetchData={fetchData}
-        solvedBy={solvedBy}
-        roundEnd={roundEnd}
-        rounds={rounds}
+        passwordLength={passwordLength}
+        currentPassword={currentPassword}
+        previousPassword={previousPassword}
       />
     );
   };
@@ -220,13 +208,13 @@ function App() {
           render={
             () => (
               <Home
-                username={username}
                 roomId={roomId}
-                setUsername={setUsername}
-                setHasStarted={setHasStarted}
+                username={username}
+                joinRoom={joinRoom}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
-                joinRoom={joinRoom}
+                setUsername={setUsername}
+                setHasStarted={setHasStarted}
               />
             )
           }
@@ -237,26 +225,6 @@ function App() {
           path="/play/:room"
         >
           {playComponent()}
-        </Route>
-
-        <Route exact path="/test">
-          <Game
-            username={username}
-            roomId={roomId}
-            players={players}
-            hints={hints}
-            sendHint={sendHint}
-            sendMessage={sendMessage}
-            messageList={messageList}
-            previousPassword={previousPassword}
-            currentPassword={currentPassword}
-            passwordLength={passwordLength}
-            currentRound={currentRound}
-            passwordHolder={passwordHolder}
-            fetchData={fetchData}
-            solvedBy={solvedBy}
-            roundEnd={roundEnd}
-          />
         </Route>
       </Switch>
     </Router>
