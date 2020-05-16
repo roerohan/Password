@@ -4,15 +4,11 @@
 }
 
 .user-col {
-    width: 60%;
+    width: 50%;
     overflow: auto;
 }
 
-.list-username {
-    font-size: 1.25rem;
-}
-
-.rank {
+.list-username, .rank {
     font-size: 1.25rem;
 }
 

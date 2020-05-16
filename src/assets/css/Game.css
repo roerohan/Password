@@ -5,6 +5,7 @@
 .password-card {
     height: 17vh;
     font-size: 1.25rem;
+    max-width: 34vw;
 }
 
 .current-password {
@@ -13,6 +14,7 @@
 
 .blanks {
     font-size: 2.3rem;
+    max-width: 30vw;
 }
 
 .hint-card {
@@ -29,6 +31,8 @@
 
 .hints {
     overflow: auto;
+    margin-bottom: 5%;
+    max-width: 30vw;
 }
 
 .hint-card input[type="text"]::placeholder {
@@ -48,4 +52,10 @@
 
 .game-chat {
     height: 70vh;
+}
+
+@media (max-width: 768px) {
+    .password-card {
+        max-width: 76vw;
+    }
 }
