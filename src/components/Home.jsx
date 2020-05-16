@@ -126,7 +126,14 @@ function Home(props) {
                 <li>The player will type a word related to the password.</li>
                 <li>Rest of the players will have to guess the &lsquo;password&rsquo;.</li>
                 <li>The earlier you guess, the higher you score.</li>
-                <li>Hints will be displayed in 15 seconds intervals.</li>
+                <li>You are allowed 4 hints.</li>
+                <li>A hint is a single word of atmost 25 letters.</li>
+                <li>More the number of hints you see, lesser the points.</li>
+                <li>
+                  <strong>Note:</strong>
+                  {' '}
+                  Check the browser console upon unexpected behaviour.
+                </li>
               </ol>
             </GameCard.Body>
           </GameCard>
@@ -137,13 +144,14 @@ function Home(props) {
 }
 
 Home.propTypes = {
-  username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
-  setUsername: propTypes.func.isRequired,
-  setHasStarted: propTypes.func.isRequired,
+  username: propTypes.string.isRequired,
+
+  joinRoom: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   setCreator: propTypes.func.isRequired,
-  joinRoom: propTypes.func.isRequired,
+  setUsername: propTypes.func.isRequired,
+  setHasStarted: propTypes.func.isRequired,
 };
 
 export default Home;

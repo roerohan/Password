@@ -1,10 +1,24 @@
+.game-container {
+    max-width: 80vw;
+}
+
+.game-container .user-col {
+    width: 50%;
+}
+
 .password-card {
     height: 17vh;
     font-size: 1.25rem;
+    max-width: 34vw;
+}
+
+.current-password {
+    color: #f3f95e;
 }
 
 .blanks {
-    font-size: 3rem;
+    font-size: 2.3rem;
+    max-width: 30vw;
 }
 
 .hint-card {
@@ -21,8 +35,31 @@
 
 .hints {
     overflow: auto;
+    margin-bottom: 5%;
+    max-width: 30vw;
 }
 
 .hint-card input[type="text"]::placeholder {
     font-style: italic;
+}
+
+.hints::-webkit-scrollbar {
+    width: 0.25rem;
+    margin-left: -10px;
+}
+
+.hints::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    opacity: 0.8;
+    border-radius: 1.25rem;
+}
+
+.game-chat {
+    height: 70vh;
+}
+
+@media (max-width: 768px) {
+    .password-card {
+        max-width: 76vw;
+    }
 }

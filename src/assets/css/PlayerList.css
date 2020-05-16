@@ -8,7 +8,7 @@
     overflow: auto;
 }
 
-.list-username {
+.list-username, .rank {
     font-size: 1.25rem;
 }
 

@@ -1,0 +1,16 @@
+.timer {
+    padding: 0;
+    border: 1px solid #ffffff;
+    border-radius: 0.8rem;
+    font-size: 1.15rem;
+}
+
+.left-timer {
+    width: 37%;
+    border-right: 1px solid #ffffff;
+}
+
+.right-rounds {
+    width: 53%;
+    font-weight: bold;
+}

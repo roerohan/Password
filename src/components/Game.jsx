@@ -15,6 +15,7 @@ import GameCard from './GameCard';
 import API from '../API';
 
 import '../assets/css/Game.css';
+import Timer from './Timer';
 
 function Game(props) {
   const {
@@ -23,6 +24,7 @@ function Game(props) {
     players,
     hints,
     previousPassword,
+    currentPassword,
     passwordLength,
     currentRound,
     passwordHolder,
@@ -30,16 +32,34 @@ function Game(props) {
     sendHint,
     messageList,
     fetchData,
+    solvedBy,
+    roundEnd,
+    rounds,
   } = props;
 
   const [hint, setHint] = useState('');
 
   useEffect(() => {
-    const fetch = async () => { await fetchData(username, roomId); };
+    const fetch = async () => { await fetchData(); };
     fetch();
-  }, [fetchData, username, roomId]);
+  }, [fetchData]);
 
-  console.log(currentRound, passwordLength, previousPassword);
+  useEffect(() => {
+    if (solvedBy.length !== players.length - 1) return;
+    const fetch = async () => { await fetchData(); };
+    fetch();
+  }, [solvedBy, fetchData, players]);
+
+  useEffect(() => {
+    console.log('setting timeout ran');
+    const timeOut = setTimeout(async () => {
+      await fetchData();
+    }, roundEnd - new Date().getTime());
+
+    return () => clearTimeout(timeOut);
+  }, [fetchData, roundEnd]);
+
+  console.log(hints, previousPassword);
   const handleChange = ({ target }) => setHint(target.value);
 
   const handleSubmit = async (e) => {
@@ -51,27 +71,51 @@ function Game(props) {
       hint,
     })).data;
 
-    if (response.success) sendHint(response.message.hint, username, roomId);
+    if (!response.success) {
+      console.error(response.message);
+      return;
+    }
+
+    sendHint(response.message.hints, roomId, username);
+    setHint('');
   };
 
   const renderBlanks = () => {
+    if (currentPassword) {
+      return (
+        <div className="current-password">
+          {currentPassword}
+        </div>
+      );
+    }
     const blanks = new Array(passwordLength).fill(
       '_ ',
     );
     return blanks.map((blank) => blank);
   };
 
+  const renderPreiviousHints = () => (hints.map((h, index) => (
+    <div key={Math.random().toString()}>
+      Hint
+      {' '}
+      {index + 1}
+      :
+      {' '}
+      {h}
+    </div>
+  ))
+  );
+
   return (
-    <Container fluid className="lobby-container">
+    <Container fluid className="game-container">
       <Heading />
       <Row className="mt-4">
         <Col md>
           <PlayerList
-            header={`Round ${currentRound}`}
             players={players}
           />
         </Col>
-        <Col md className="mb-4 d-flex flex-column justify-content-center">
+        <Col md className="d-flex flex-column justify-content-center">
           <GameCard>
             <GameCard.Body className="text-center password-card">
               <div>The Password is:</div>
@@ -83,15 +127,10 @@ function Game(props) {
               <div className="hints">
                 <div className="text-center">
                   <div className="hint-pretext">The current hint is:</div>
-                  <div className="current-hint mb-2">Bath</div>
+                  <div className="current-hint mb-2">{hints.slice(-1)[0]}</div>
                 </div>
                 <div className="prev-hint-container">
-                  <div>
-                    The 1st hint was: Washroom
-                    {' '}
-                    {hints}
-                  </div>
-                  <div>The 2st hint was: Shower</div>
+                  {renderPreiviousHints()}
                 </div>
               </div>
               <Form onSubmit={handleSubmit} className="send-hint">
@@ -112,8 +151,14 @@ function Game(props) {
               </Form>
             </GameCard.Body>
           </GameCard>
+          <Timer
+            className="mt-4 w-75 mx-auto"
+            roundEnd={roundEnd}
+            rounds={rounds}
+            currentRound={currentRound}
+          />
         </Col>
-        <Col>
+        <Col className="game-chat">
           <Chat
             sendMessage={sendMessage}
             messageList={messageList}
@@ -125,25 +170,33 @@ function Game(props) {
 }
 
 Game.propTypes = {
-  username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
-  hints: propTypes.arrayOf(propTypes.string).isRequired,
-  previousPassword: propTypes.string.isRequired,
-  passwordLength: propTypes.number.isRequired,
-  currentRound: propTypes.number.isRequired,
+  username: propTypes.string.isRequired,
   passwordHolder: propTypes.string.isRequired,
+  currentPassword: propTypes.string.isRequired,
+  previousPassword: propTypes.string.isRequired,
+
+  rounds: propTypes.number.isRequired,
+  roundEnd: propTypes.number.isRequired,
+  currentRound: propTypes.number.isRequired,
+  passwordLength: propTypes.number.isRequired,
+
   sendHint: propTypes.func.isRequired,
-  sendMessage: propTypes.func.isRequired,
   fetchData: propTypes.func.isRequired,
+  sendMessage: propTypes.func.isRequired,
+
+  hints: propTypes.arrayOf(propTypes.string).isRequired,
+  solvedBy: propTypes.arrayOf(propTypes.string).isRequired,
+
   messageList: propTypes.arrayOf(propTypes.shape({
+    time: propTypes.string,
     message: propTypes.string,
     username: propTypes.string,
-    time: propTypes.string,
   })).isRequired,
   players: propTypes.arrayOf(propTypes.shape({
+    _id: propTypes.string,
     username: propTypes.string,
     points: propTypes.number,
-    _id: propTypes.string,
   })).isRequired,
 };
 

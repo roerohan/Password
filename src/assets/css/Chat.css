@@ -1,5 +1,5 @@
 .chat {
-    height: 70vh;
+    height: 100%;
 }
 
 .messages {
@@ -7,7 +7,7 @@
     font-size: 0.95rem;
     padding-left: 0;
     list-style: none;
-    max-width: 21vw;
+    max-width: 23vw;
 }
 
 .send-message input[type="text"]::placeholder {

@@ -1,3 +1,17 @@
 .lobby-container {
-    max-width: 80vw;
+    max-width: 50vw;
+}
+
+.lobby-players {
+    height: 70vh;
+}
+
+.lobby-players .rank {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .lobby-container {
+        max-width: 80vw;
+    }
 }
