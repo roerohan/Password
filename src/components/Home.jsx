@@ -138,13 +138,14 @@ function Home(props) {
 }
 
 Home.propTypes = {
-  username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
-  setUsername: propTypes.func.isRequired,
-  setHasStarted: propTypes.func.isRequired,
+  username: propTypes.string.isRequired,
+
+  joinRoom: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   setCreator: propTypes.func.isRequired,
-  joinRoom: propTypes.func.isRequired,
+  setUsername: propTypes.func.isRequired,
+  setHasStarted: propTypes.func.isRequired,
 };
 
 export default Home;

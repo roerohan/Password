@@ -39,7 +39,7 @@ function WaitingRoom(props) {
   }, [room, currentRoom, setRoomId, history]);
 
   const [rounds, setRounds] = useState(3);
-  console.log(rounds);
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
@@ -88,21 +88,24 @@ function WaitingRoom(props) {
 }
 
 WaitingRoom.propTypes = {
-  username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
+  username: propTypes.string.isRequired,
+
   setRoomId: propTypes.func.isRequired,
+  startGame: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
+
   messageList: propTypes.arrayOf(propTypes.shape({
+    time: propTypes.string,
     message: propTypes.string,
     username: propTypes.string,
-    time: propTypes.string,
   })).isRequired,
+
   players: propTypes.arrayOf(propTypes.shape({
+    _id: propTypes.string,
     username: propTypes.string,
     points: propTypes.number,
-    _id: propTypes.string,
   })).isRequired,
-  startGame: propTypes.func.isRequired,
 };
 
 export default WaitingRoom;

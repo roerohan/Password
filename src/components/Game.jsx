@@ -170,29 +170,33 @@ function Game(props) {
 }
 
 Game.propTypes = {
-  username: propTypes.string.isRequired,
   roomId: propTypes.string.isRequired,
-  hints: propTypes.arrayOf(propTypes.string).isRequired,
-  previousPassword: propTypes.string.isRequired,
-  currentPassword: propTypes.string.isRequired,
-  passwordLength: propTypes.number.isRequired,
-  currentRound: propTypes.number.isRequired,
-  roundEnd: propTypes.number.isRequired,
+  username: propTypes.string.isRequired,
   passwordHolder: propTypes.string.isRequired,
-  sendHint: propTypes.func.isRequired,
-  sendMessage: propTypes.func.isRequired,
-  fetchData: propTypes.func.isRequired,
+  currentPassword: propTypes.string.isRequired,
+  previousPassword: propTypes.string.isRequired,
+
   rounds: propTypes.number.isRequired,
+  roundEnd: propTypes.number.isRequired,
+  currentRound: propTypes.number.isRequired,
+  passwordLength: propTypes.number.isRequired,
+
+  sendHint: propTypes.func.isRequired,
+  fetchData: propTypes.func.isRequired,
+  sendMessage: propTypes.func.isRequired,
+
+  hints: propTypes.arrayOf(propTypes.string).isRequired,
   solvedBy: propTypes.arrayOf(propTypes.string).isRequired,
+
   messageList: propTypes.arrayOf(propTypes.shape({
+    time: propTypes.string,
     message: propTypes.string,
     username: propTypes.string,
-    time: propTypes.string,
   })).isRequired,
   players: propTypes.arrayOf(propTypes.shape({
+    _id: propTypes.string,
     username: propTypes.string,
     points: propTypes.number,
-    _id: propTypes.string,
   })).isRequired,
 };
 

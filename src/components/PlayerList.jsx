@@ -65,17 +65,18 @@ function PlayerList(props) {
 
 PlayerList.defaultProps = {
   header: '',
-  footer: '',
+  footer: <></>,
 };
 
 PlayerList.propTypes = {
   players: propTypes.arrayOf(propTypes.shape({
+    _id: propTypes.string,
     username: propTypes.string,
     points: propTypes.number,
-    _id: propTypes.string,
   })).isRequired,
+
   header: propTypes.string,
-  footer: propTypes.string,
+  footer: propTypes.node,
 };
 
 export default PlayerList;

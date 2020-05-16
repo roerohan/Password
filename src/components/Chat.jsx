@@ -67,6 +67,7 @@ function Chat(props) {
 
 Chat.propTypes = {
   sendMessage: propTypes.func.isRequired,
+
   messageList: propTypes.arrayOf(propTypes.shape({
     message: propTypes.string,
     username: propTypes.string,
