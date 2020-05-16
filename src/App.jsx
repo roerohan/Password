@@ -25,15 +25,19 @@ function App() {
 
   const [roomId, setRoomId] = useState('');
   const [creator, setCreator] = useState('');
+  const [passwordHolder, setPasswordHolder] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [previousPassword, setPreviousPassword] = useState('');
+
+  const [hints, setHints] = useState([]);
   const [players, setPlayersState] = useState([]);
   const [messageList, setMessageList] = useState([]);
-  const [hasStarted, setHasStarted] = useState(false);
-  const [passwordHolder, setPasswordHolder] = useState('');
-  const [hints, setHints] = useState([]);
-  const [previousPassword, setPreviousPassword] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
+  const [solvedBy, setSolvedBy] = useState([]);
+
   const [passwordLength, setPasswordLength] = useState(0);
   const [currentRound, setCurrentRound] = useState(0);
+
+  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     console.log(`username: ${username}`);
@@ -77,8 +81,9 @@ function App() {
     });
 
     socket.on('correct', (data) => {
-      const { players: ps } = data;
+      const { players: ps, solvedBy: sb } = data;
       setPlayers(ps);
+      setSolvedBy(sb);
     });
 
     socket.on('hint', (data) => {
@@ -143,6 +148,7 @@ function App() {
 
     if (!response.success) {
       console.error(response.message);
+      return;
     }
 
     console.log('FETCHED DATA');
@@ -192,6 +198,7 @@ function App() {
         currentRound={currentRound}
         passwordHolder={passwordHolder}
         fetchData={fetchData}
+        solvedBy={solvedBy}
       />
     );
   };
@@ -239,6 +246,7 @@ function App() {
             currentRound={currentRound}
             passwordHolder={passwordHolder}
             fetchData={fetchData}
+            solvedBy={solvedBy}
           />
         </Route>
       </Switch>
