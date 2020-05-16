@@ -18,6 +18,13 @@ function Body(props) {
   );
 }
 
+function Footer(props) {
+  const { children, className } = props;
+  return (
+    <Card.Footer className={className}>{children}</Card.Footer>
+  );
+}
+
 function GameCard(props) {
   const { children, className } = props;
   return (
@@ -37,13 +44,16 @@ const defaultProps = {
 
 Header.propTypes = propType;
 Body.propTypes = propType;
+Footer.propTypes = propType;
 GameCard.propTypes = propType;
 
 Header.defaultProps = defaultProps;
 Body.defaultProps = defaultProps;
+Footer.defaultProps = defaultProps;
 GameCard.defaultProps = defaultProps;
 
 GameCard.Body = Body;
 GameCard.Header = Header;
+GameCard.Footer = Footer;
 
 export default GameCard;

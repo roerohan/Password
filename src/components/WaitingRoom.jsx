@@ -65,8 +65,10 @@ function WaitingRoom(props) {
           <PlayerList
             header="Joined"
             players={players}
+            footer={
+              <Button type="submit" variant="success" onClick={handleClick}>Play</Button>
+            }
           />
-          <Button type="submit" variant="success" onClick={handleClick}>Play</Button>
         </Col>
         <Col className="d-flex flex-column">
           <GameCard className="mb-2 settings">

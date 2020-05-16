@@ -15,6 +15,7 @@ function PlayerList(props) {
   const {
     players,
     header,
+    footer,
   } = props;
 
   const userBox = (username, points, index, id) => (
@@ -43,18 +44,28 @@ function PlayerList(props) {
     return <GameCard.Header className="text-center playerlist-header">{header}</GameCard.Header>;
   };
 
+  const renderFooter = () => {
+    if (!footer) {
+      return <></>;
+    }
+
+    return <GameCard.Footer className="text-center playerlist-footer">{footer}</GameCard.Footer>;
+  };
+
   return (
     <GameCard className="chat">
       {renderHeader()}
-      <GameCard.Body className="text-center">
+      <GameCard.Body className="text-center py-0">
         <div className="player-list">{players.map((player, index) => userBox(player.username, player.points, index, player._id))}</div>
       </GameCard.Body>
+      {renderFooter()}
     </GameCard>
   );
 }
 
 PlayerList.defaultProps = {
   header: '',
+  footer: '',
 };
 
 PlayerList.propTypes = {
@@ -64,6 +75,7 @@ PlayerList.propTypes = {
     _id: propTypes.string,
   })).isRequired,
   header: propTypes.string,
+  footer: propTypes.string,
 };
 
 export default PlayerList;
