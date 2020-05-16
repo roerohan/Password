@@ -36,6 +36,7 @@ function App() {
 
   const [passwordLength, setPasswordLength] = useState(0);
   const [currentRound, setCurrentRound] = useState(0);
+  const [roundEnd, setRoundEnd] = useState(0);
 
   const [hasStarted, setHasStarted] = useState(false);
 
@@ -122,7 +123,6 @@ function App() {
 
   const sendHint = (h, r, u) => {
     if (!h || !r || !u) return;
-    console.log('RAN');
     socket.emit('hint', {
       passwordHolder,
       hints: h,
@@ -159,13 +159,16 @@ function App() {
       currentRound: cr,
       passwordLength: pl,
       hints: h,
+      roundEnd: re,
     } = response.message;
+
     setPasswordHolder(ph);
     setPreviousPassword(pp);
     setCurrentPassword(cp);
     setCurrentRound(cr);
     setPasswordLength(pl);
     setHints(h);
+    setRoundEnd(re);
   }, [username, roomId]);
 
   const playComponent = () => {
@@ -199,6 +202,7 @@ function App() {
         passwordHolder={passwordHolder}
         fetchData={fetchData}
         solvedBy={solvedBy}
+        roundEnd={roundEnd}
       />
     );
   };
@@ -247,6 +251,7 @@ function App() {
             passwordHolder={passwordHolder}
             fetchData={fetchData}
             solvedBy={solvedBy}
+            roundEnd={roundEnd}
           />
         </Route>
       </Switch>

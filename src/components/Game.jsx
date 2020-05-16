@@ -32,6 +32,7 @@ function Game(props) {
     messageList,
     fetchData,
     solvedBy,
+    roundEnd,
   } = props;
 
   const [hint, setHint] = useState('');
@@ -42,11 +43,19 @@ function Game(props) {
   }, [fetchData]);
 
   useEffect(() => {
-    console.log(`SolvedBy ${solvedBy}`);
     if (solvedBy.length !== players.length - 1) return;
     const fetch = async () => { await fetchData(); };
     fetch();
   }, [solvedBy, fetchData, players]);
+
+  useEffect(() => {
+    console.log('setting timeout ran');
+    const timeOut = setTimeout(async () => {
+      await fetchData();
+    }, roundEnd - new Date().getTime());
+
+    return () => clearTimeout(timeOut);
+  }, [fetchData, roundEnd]);
 
   console.log(hints, previousPassword);
   const handleChange = ({ target }) => setHint(target.value);
@@ -161,6 +170,7 @@ Game.propTypes = {
   currentPassword: propTypes.string.isRequired,
   passwordLength: propTypes.number.isRequired,
   currentRound: propTypes.number.isRequired,
+  roundEnd: propTypes.number.isRequired,
   passwordHolder: propTypes.string.isRequired,
   sendHint: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
