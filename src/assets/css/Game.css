@@ -62,4 +62,8 @@
     .password-card {
         max-width: 76vw;
     }
+
+    .blanks {
+        max-width: 70vw;
+    }
 }

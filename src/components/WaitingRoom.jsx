@@ -72,7 +72,7 @@ function WaitingRoom(props) {
             }
           />
         </Col>
-        <Col className="d-flex flex-column">
+        <Col className="d-flex flex-column lobby-right">
           <Settings
             setRounds={setRounds}
           />

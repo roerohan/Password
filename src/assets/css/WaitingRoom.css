@@ -6,6 +6,10 @@
     height: 70vh;
 }
 
+.lobby-right {
+    height: 70vh;
+}
+
 .lobby-players .rank {
     display: none;
 }

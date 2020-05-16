@@ -24,3 +24,9 @@
     opacity: 0.8;
     border-radius: 1.25rem;
 }
+
+@media (max-width: 768px) {
+    .messages {
+        max-width: 70vw;
+    }
+}
