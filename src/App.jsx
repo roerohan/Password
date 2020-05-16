@@ -130,11 +130,15 @@ function App() {
     })).data;
 
     if (!response.success) {
+      if (response.message === 'gameEnded') {
+        // eslint-disable-next-line no-alert
+        alert('Game Over!');
+      }
+
       console.error(response.message);
       return;
     }
 
-    console.log('FETCHED DATA');
     const {
       hints: h,
       rounds: r,
