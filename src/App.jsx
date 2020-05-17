@@ -8,8 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import socketio from 'socket.io-client';
 
 import Home from './components/Home';
-import WaitingRoom from './components/WaitingRoom';
 import Game from './components/Game';
+import Error from './components/Error';
+import WaitingRoom from './components/WaitingRoom';
 
 import './assets/css/App.css';
 import API from './API';
@@ -23,6 +24,7 @@ function App() {
     localStorage.setItem('username', username);
   }, [username]);
 
+  const [error, setError] = useState('');
   const [roomId, setRoomId] = useState('');
   const [creator, setCreator] = useState('');
   const [passwordHolder, setPasswordHolder] = useState('');
@@ -130,11 +132,7 @@ function App() {
     })).data;
 
     if (!response.success) {
-      if (response.message === 'gameEnded') {
-        // eslint-disable-next-line no-alert
-        alert('Game Over!');
-      }
-
+      setError(response.message);
       console.error(response.message);
       return;
     }
@@ -173,6 +171,7 @@ function App() {
           roomId={roomId}
           creator={creator}
           players={players}
+          setError={setError}
           username={username}
           startGame={startGame}
           setRoomId={setRoomId}
@@ -191,6 +190,7 @@ function App() {
         sendHint={sendHint}
         roundEnd={roundEnd}
         solvedBy={solvedBy}
+        setError={setError}
         fetchData={fetchData}
         sendMessage={sendMessage}
         messageList={messageList}
@@ -205,6 +205,10 @@ function App() {
 
   return (
     <Router>
+      <Error
+        error={error}
+        setError={setError}
+      />
       <Switch>
         <Route
           exact
@@ -215,6 +219,7 @@ function App() {
                 roomId={roomId}
                 username={username}
                 joinRoom={joinRoom}
+                setError={setError}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
                 setUsername={setUsername}

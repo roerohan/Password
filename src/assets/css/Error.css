@@ -1,0 +1,14 @@
+.error {
+    position: absolute;
+    width: 40vw;
+    left: 0;
+    right: 0;
+    margin: 1vh auto;
+    z-index: 1;
+}
+
+@media(max-width: 768px) {
+    .error {
+        width: 90vw;
+    }
+}

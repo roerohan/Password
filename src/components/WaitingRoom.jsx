@@ -18,13 +18,14 @@ import '../assets/css/WaitingRoom.css';
 
 function WaitingRoom(props) {
   const {
-    username,
     roomId,
     players,
+    setError,
+    username,
     setRoomId,
+    startGame,
     sendMessage,
     messageList,
-    startGame,
   } = props;
 
   const [currentRoom] = useState(roomId);
@@ -46,6 +47,7 @@ function WaitingRoom(props) {
       const response = (await API.post('/game/start', { roomId, username, rounds })).data;
       if (!response.success) {
         console.error(response.message);
+        setError(response.message);
         return;
       }
 
@@ -56,6 +58,7 @@ function WaitingRoom(props) {
       startGame(roomId, username);
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   };
 
@@ -91,6 +94,7 @@ WaitingRoom.propTypes = {
   roomId: propTypes.string.isRequired,
   username: propTypes.string.isRequired,
 
+  setError: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   startGame: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,

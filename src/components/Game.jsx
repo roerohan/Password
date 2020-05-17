@@ -19,22 +19,23 @@ import Timer from './Timer';
 
 function Game(props) {
   const {
-    username,
-    roomId,
-    players,
     hints,
-    previousPassword,
-    currentPassword,
-    passwordLength,
+    roomId,
+    rounds,
+    players,
+    username,
+    sendHint,
+    setError,
+    roundEnd,
+    solvedBy,
+    fetchData,
+    sendMessage,
+    messageList,
     currentRound,
     passwordHolder,
-    sendMessage,
-    sendHint,
-    messageList,
-    fetchData,
-    solvedBy,
-    roundEnd,
-    rounds,
+    passwordLength,
+    currentPassword,
+    previousPassword,
   } = props;
 
   const [hint, setHint] = useState('');
@@ -51,7 +52,6 @@ function Game(props) {
   }, [solvedBy, fetchData, players]);
 
   useEffect(() => {
-    console.log('setting timeout ran');
     const timeOut = setTimeout(async () => {
       await fetchData();
     }, roundEnd - new Date().getTime());
@@ -59,7 +59,10 @@ function Game(props) {
     return () => clearTimeout(timeOut);
   }, [fetchData, roundEnd]);
 
-  console.log(hints, previousPassword);
+  useEffect(() => {
+    console.log(hints, previousPassword);
+  }, [hints, previousPassword]);
+
   const handleChange = ({ target }) => setHint(target.value);
 
   const handleSubmit = async (e) => {
@@ -73,6 +76,7 @@ function Game(props) {
 
     if (!response.success) {
       console.error(response.message);
+      setError(response.message);
       return;
     }
 
@@ -182,6 +186,7 @@ Game.propTypes = {
   passwordLength: propTypes.number.isRequired,
 
   sendHint: propTypes.func.isRequired,
+  setError: propTypes.func.isRequired,
   fetchData: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
 

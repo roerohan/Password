@@ -26,6 +26,7 @@ function Home(props) {
     setHasStarted,
     setRoomId,
     setCreator,
+    setError,
     joinRoom,
   } = props;
   const [username, setUsername] = useState(appUsername);
@@ -46,9 +47,9 @@ function Home(props) {
   const handleJoin = async (e) => {
     e.preventDefault();
     const response = (await API.get(`/room/join/${appRoomId}`, { params: { username } })).data;
-    console.log(response);
     if (!response.success) {
       console.error(response.message);
+      setError(response.message);
       return;
     }
 
@@ -68,13 +69,15 @@ function Home(props) {
 
       if (!response.success) {
         console.error(response.message);
+        setError(response.message);
         return;
       }
 
       const { roomId, creator, players } = response.message;
       liftStateFromResponse(roomId, creator, players);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setError(error);
     }
   };
 
@@ -147,6 +150,7 @@ Home.propTypes = {
   roomId: propTypes.string.isRequired,
   username: propTypes.string.isRequired,
 
+  setError: propTypes.func.isRequired,
   joinRoom: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   setCreator: propTypes.func.isRequired,
