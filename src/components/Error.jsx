@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Alert } from 'react-bootstrap';
 import propTypes from 'prop-types';
 
@@ -8,6 +8,11 @@ function Error(props) {
   const { error, setError } = props;
 
   const [show, setShow] = useState(error !== '');
+
+  const handleClose = useCallback(() => {
+    setShow(false);
+    setError('');
+  }, [setError]);
 
   useEffect(() => {
     if (error === 'noRooms') {
@@ -29,12 +34,12 @@ function Error(props) {
     }
 
     setShow(error);
-  }, [error, setError]);
 
-  const handleClose = () => {
-    setShow(false);
-    setError('');
-  };
+    const escapeListener = (event) => { if (event.keyCode === 27) handleClose(); };
+    document.addEventListener('keydown', escapeListener, false);
+
+    return () => { document.removeEventListener('keydown', escapeListener, false); };
+  }, [error, setError, handleClose]);
 
   if (show) {
     return (
