@@ -132,6 +132,10 @@ function App() {
     })).data;
 
     if (!response.success) {
+      if (response.message === 'versionError') {
+        await fetchData();
+        return;
+      }
       setError(response.message);
       console.error(response.message);
       return;
