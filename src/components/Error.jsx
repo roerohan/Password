@@ -16,7 +16,7 @@ function Error(props) {
 
   useEffect(() => {
     if (error === 'noRooms') {
-      setError('The are no active rooms you can join!');
+      setError('The are no active rooms that you can join!');
     } else if (error === 'usernameAlreadyExists') {
       setError('A user with this username already exists in this room.');
     } else if (error === 'gameNotFound') {
