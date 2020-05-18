@@ -29,6 +29,8 @@ function Error(props) {
       setError('Haha loner get some friends.');
     } else if (error === 'notAdmin') {
       setError('Only the room creator can start the game!');
+    } else if (error === 'hintInvalid') {
+      setError('The hint you entered is not valid. Note: The password can\'t be in the hint.');
     } else if (error === 'gameEnded') {
       setError('The game has ended!');
     }
