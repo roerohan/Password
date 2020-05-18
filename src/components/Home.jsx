@@ -133,7 +133,7 @@ function Home(props) {
                 <li>A hint is a single word of atmost 25 letters.</li>
                 <li>More the number of hints you see, lesser the points.</li>
               </ol>
-              <div className="text-center font-italic text-underline">
+              <div className="text-center font-italic">
                 <a href="/about" className="m-auto"><u>About</u></a>
               </div>
             </GameCard.Body>

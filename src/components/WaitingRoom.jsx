@@ -6,6 +6,8 @@ import {
   Col,
   Button,
 } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClipboard } from '@fortawesome/free-regular-svg-icons';
 import propTypes from 'prop-types';
 
 import API from '../API';
@@ -15,6 +17,7 @@ import PlayerList from './PlayerList';
 import Settings from './Settings';
 
 import '../assets/css/WaitingRoom.css';
+import GameCard from './GameCard';
 
 function WaitingRoom(props) {
   const {
@@ -62,10 +65,31 @@ function WaitingRoom(props) {
     }
   };
 
+  const copyToClipboard = () => {
+    const link = document.getElementById('copy-link');
+    link.select();
+    link.setSelectionRange(0, 99999);
+    document.execCommand('copy');
+    console.log('Copied!');
+  };
+
   return (
     <Container fluid className="lobby-container">
       <Heading />
-      <Row className="mt-4">
+      <div className="text-center subtitle mt-3">Send this link to your friends!</div>
+      <GameCard className="mt-2">
+        <GameCard.Body className="p-0 text-center">
+          <button
+            type="button"
+            className="copy-button p-2"
+            onClick={copyToClipboard}
+          >
+            <input type="text" className="text-center" id="copy-link" readOnly value={window.location.href} />
+            <FontAwesomeIcon icon={faClipboard} size="1x" className="copy-icon" />
+          </button>
+        </GameCard.Body>
+      </GameCard>
+      <Row className="mt-2">
         <Col md className="lobby-players">
           <PlayerList
             header="Joined"
