@@ -10,6 +10,7 @@ import socketio from 'socket.io-client';
 import Home from './components/Home';
 import Game from './components/Game';
 import Error from './components/Error';
+import About from './components/About';
 import WaitingRoom from './components/WaitingRoom';
 
 import './assets/css/App.css';
@@ -238,6 +239,11 @@ function App() {
           path="/play/:room"
         >
           {playComponent()}
+        </Route>
+        <Route
+          path="/about"
+        >
+          <About />
         </Route>
       </Switch>
     </Router>

@@ -132,12 +132,10 @@ function Home(props) {
                 <li>You are allowed 4 hints.</li>
                 <li>A hint is a single word of atmost 25 letters.</li>
                 <li>More the number of hints you see, lesser the points.</li>
-                <li>
-                  <strong>Note:</strong>
-                  {' '}
-                  Check the browser console upon unexpected behaviour.
-                </li>
               </ol>
+              <div className="text-center font-italic text-underline">
+                <a href="/about" className="m-auto"><u>About</u></a>
+              </div>
             </GameCard.Body>
           </GameCard>
         </Col>
