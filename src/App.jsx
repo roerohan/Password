@@ -219,6 +219,7 @@ function App() {
       <Notif
         alert={alert}
         setAlert={setAlert}
+        setHasStarted={setHasStarted}
       />
       <Switch>
         <Route

@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import '../assets/css/Notif.css';
 
 function Notif(props) {
-  const { alert, setAlert } = props;
+  const { alert, setAlert, setHasStarted } = props;
 
   const [show, setShow] = useState(alert !== '');
   const [variant, setVariant] = useState('danger');
@@ -35,8 +35,8 @@ function Notif(props) {
     } else if (alert === 'hintInvalid') {
       setAlert('The hint you entered is not valid. Note: The password can\'t be in the hint, spaces aren\'t allowed.');
     } else if (alert === 'gameEnded') {
-      setAlert('The game has ended!');
       setVariant('success');
+      setAlert('The game has ended!');
     } else if (alert.includes('knows the password')) {
       setVariant('success');
     }
@@ -49,11 +49,26 @@ function Notif(props) {
     return () => { document.removeEventListener('keydown', escapeListener, false); };
   }, [alert, setAlert, handleClose]);
 
+  useEffect(() => {
+    if (!show) {
+      return () => {};
+    }
+
+    const timeOut = setTimeout(() => {
+      if (alert === 'The game has ended!') {
+        setHasStarted(false);
+      }
+      handleClose();
+    }, 5000);
+
+    return () => { clearTimeout(timeOut); };
+  }, [show, handleClose, alert, setHasStarted]);
+
   const renderHeading = () => {
     if (variant === 'danger') {
       return 'Oh snap! You got an error!';
     }
-    return 'Hey';
+    return 'Hey,';
   };
 
   if (show) {
@@ -76,6 +91,7 @@ function Notif(props) {
 Notif.propTypes = {
   alert: propTypes.string.isRequired,
   setAlert: propTypes.func.isRequired,
+  setHasStarted: propTypes.func.isRequired,
 };
 
 export default Notif;
