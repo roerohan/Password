@@ -9,7 +9,7 @@ import socketio from 'socket.io-client';
 
 import Home from './components/Home';
 import Game from './components/Game';
-import Error from './components/Error';
+import Notif from './components/Notif';
 import About from './components/About';
 import WaitingRoom from './components/WaitingRoom';
 
@@ -25,7 +25,7 @@ function App() {
     localStorage.setItem('username', username);
   }, [username]);
 
-  const [error, setError] = useState('');
+  const [alert, setAlert] = useState('');
   const [roomId, setRoomId] = useState('');
   const [creator, setCreator] = useState('');
   const [passwordHolder, setPasswordHolder] = useState('');
@@ -137,7 +137,7 @@ function App() {
         await fetchData();
         return;
       }
-      setError(response.message);
+      setAlert(response.message);
       console.error(response.message);
       return;
     }
@@ -152,6 +152,12 @@ function App() {
       currentPassword: cp,
       previousPassword: pp,
     } = response.message;
+
+    let alertMessage = `${ph} knows the password!`;
+    if (pp) {
+      alertMessage += `The previous password was '${pp}'.`;
+    }
+    setAlert(alertMessage);
 
     setHints(h);
     setRounds(r);
@@ -176,7 +182,7 @@ function App() {
           roomId={roomId}
           creator={creator}
           players={players}
-          setError={setError}
+          setAlert={setAlert}
           username={username}
           startGame={startGame}
           setRoomId={setRoomId}
@@ -195,7 +201,7 @@ function App() {
         sendHint={sendHint}
         roundEnd={roundEnd}
         solvedBy={solvedBy}
-        setError={setError}
+        setAlert={setAlert}
         fetchData={fetchData}
         sendMessage={sendMessage}
         messageList={messageList}
@@ -210,9 +216,9 @@ function App() {
 
   return (
     <Router>
-      <Error
-        error={error}
-        setError={setError}
+      <Notif
+        alert={alert}
+        setAlert={setAlert}
       />
       <Switch>
         <Route
@@ -224,7 +230,7 @@ function App() {
                 roomId={roomId}
                 username={username}
                 joinRoom={joinRoom}
-                setError={setError}
+                setAlert={setAlert}
                 setRoomId={setRoomId}
                 setCreator={setCreator}
                 setUsername={setUsername}

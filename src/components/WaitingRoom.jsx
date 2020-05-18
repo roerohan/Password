@@ -23,7 +23,7 @@ function WaitingRoom(props) {
   const {
     roomId,
     players,
-    setError,
+    setAlert,
     username,
     setRoomId,
     startGame,
@@ -50,7 +50,7 @@ function WaitingRoom(props) {
       const response = (await API.post('/game/start', { roomId, username, rounds })).data;
       if (!response.success) {
         console.error(response.message);
-        setError(response.message);
+        setAlert(response.message);
         return;
       }
 
@@ -61,7 +61,7 @@ function WaitingRoom(props) {
       startGame(roomId, username);
     } catch (error) {
       console.error(error);
-      setError(error);
+      setAlert(error);
     }
   };
 
@@ -118,7 +118,7 @@ WaitingRoom.propTypes = {
   roomId: propTypes.string.isRequired,
   username: propTypes.string.isRequired,
 
-  setError: propTypes.func.isRequired,
+  setAlert: propTypes.func.isRequired,
   setRoomId: propTypes.func.isRequired,
   startGame: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,

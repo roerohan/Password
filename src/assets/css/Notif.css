@@ -7,6 +7,13 @@
     z-index: 1;
 }
 
+.v-small-text {
+    right: 1vw;
+    bottom: 1vh;
+    font-size: 0.7rem;
+    position: absolute;
+}
+
 @media(max-width: 768px) {
     .error {
         width: 90vw;

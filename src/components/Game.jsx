@@ -25,7 +25,7 @@ function Game(props) {
     players,
     username,
     sendHint,
-    setError,
+    setAlert,
     roundEnd,
     solvedBy,
     fetchData,
@@ -76,7 +76,7 @@ function Game(props) {
 
     if (!response.success) {
       console.error(response.message);
-      setError(response.message);
+      setAlert(response.message);
       return;
     }
 
@@ -186,7 +186,7 @@ Game.propTypes = {
   passwordLength: propTypes.number.isRequired,
 
   sendHint: propTypes.func.isRequired,
-  setError: propTypes.func.isRequired,
+  setAlert: propTypes.func.isRequired,
   fetchData: propTypes.func.isRequired,
   sendMessage: propTypes.func.isRequired,
 
